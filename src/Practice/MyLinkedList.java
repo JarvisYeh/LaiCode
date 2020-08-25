@@ -1,8 +1,8 @@
 package Practice;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import util.ListNode;
 
+// 612. Design Linked List
 class MyLinkedList {
     private ListNode head;
     private int size;
