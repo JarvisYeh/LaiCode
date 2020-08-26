@@ -2,6 +2,7 @@ package C4_QueueAndStack;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Use one queue to implement stack
@@ -9,14 +10,14 @@ import java.util.LinkedList;
  * peek: poll and push size times, return the last poll and push value
  */
 public class Test_StackbyQueue {
-    Deque<Integer> in;
+    Queue<Integer> in;
 
     public Test_StackbyQueue() {
         in = new LinkedList<>();
     }
 
     public void push(int x) {
-        in.offerFirst(x);
+        in.offer(x);
     }
 
 
@@ -26,9 +27,9 @@ public class Test_StackbyQueue {
         }
         int size = in.size();
         for (int i = 0; i < size - 1; i++) {
-            in.offerFirst(in.pollLast());
+            in.offer(in.poll());
         }
-        return in.pollLast();
+        return in.poll();
     }
 
 
@@ -39,8 +40,8 @@ public class Test_StackbyQueue {
         int size = in.size();
         int tmp = 0;
         for (int i = 0; i < size; i++) {
-            tmp = in.pollLast();
-            in.offerFirst(tmp);
+            tmp = in.poll();
+            in.offer(tmp);
         }
         return tmp;
     }

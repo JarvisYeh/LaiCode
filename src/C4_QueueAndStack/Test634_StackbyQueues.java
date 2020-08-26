@@ -1,7 +1,7 @@
 package C4_QueueAndStack;
 
-import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * in: <- 1 2 3 4 <-
@@ -14,8 +14,8 @@ import java.util.LinkedList;
  * in: <- 1 2 3<-
  **/
 public class Test634_StackbyQueues {
-    Deque<Integer> in;
-    Deque<Integer> buf;
+    Queue<Integer> in;
+    Queue<Integer> buf;
 
     public Test634_StackbyQueues() {
         in = new LinkedList<>();
@@ -23,13 +23,13 @@ public class Test634_StackbyQueues {
     }
 
     private void swapRef() {
-        Deque<Integer> tmp = in;
+        Queue<Integer> tmp = in;
         in = buf;
         buf = tmp;
     }
 
     public void push(int x) {
-        in.offerFirst(x);
+        in.offer(x);
     }
 
     public Integer pop() {
@@ -38,11 +38,11 @@ public class Test634_StackbyQueues {
         }
         while (!in.isEmpty()) {
             if (in.size() == 1) {
-                int tmp = in.pollLast();
+                int tmp = in.poll();
                 swapRef();
                 return tmp;
             } else {
-                buf.offerFirst(in.pollLast());
+                buf.offer(in.poll());
             }
         }
         return null;
@@ -54,8 +54,8 @@ public class Test634_StackbyQueues {
         }
         int tmp = 0;
         while (!in.isEmpty()) {
-            tmp = in.pollLast();
-            buf.offerFirst(tmp);
+            tmp = in.poll();
+            buf.offer(tmp);
         }
         swapRef();
         return tmp;
