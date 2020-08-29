@@ -1,4 +1,4 @@
-package Practice;
+package Practice.P4_QueueAndStack;
 
 public class StackUsingArray {
     private int[] array;

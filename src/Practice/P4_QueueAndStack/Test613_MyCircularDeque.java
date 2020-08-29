@@ -1,4 +1,4 @@
-package Practice;
+package Practice.P4_QueueAndStack;
 
 public class Test613_MyCircularDeque {
 	private int[] array;

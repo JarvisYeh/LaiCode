@@ -1,4 +1,4 @@
-package Practice;
+package Practice.P4_QueueAndStack;
 
 // elements range from (head, tail)
 public class ResizableQueueUsingArray {

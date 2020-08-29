@@ -1,4 +1,4 @@
-package Practice;
+package Practice.P7_BinaryTrees1;
 
 import util.TreeNode;
 
