@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public class Test26_KthSmallestNumberInSortedMatrix {
 	/**
-	 * related to Best First Search
+	 * Related to Best First Search
 	 * BFS pop and push neighbors, pay attention to avoid pushing same node, and avoid crossing the boundary
 	 * pop from minHeap K times, the last one is answer
 	 **/
@@ -16,7 +16,7 @@ public class Test26_KthSmallestNumberInSortedMatrix {
 		boolean[][] generated = new boolean[rows][cols];
 
 		// minHeap using the val in Cell as the reference
-		Queue<Cell> minHeap = new PriorityQueue<>(2 * k, new Comparator<Cell>() {
+		Queue<Cell> minHeap = new PriorityQueue<>(k, new Comparator<Cell>() {
 			@Override
 			public int compare(Cell c1, Cell c2) {
 				if (c1.val == c2.val) {
