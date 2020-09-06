@@ -26,6 +26,7 @@ public class Test127_LowestCommonAncestorII {
 
 		// step 3
 		int diff = Math.abs(r_one.depth - r_two.depth);
+
 		TreeNodeP shallow = r_one.depth < r_two.depth ? one : two;
 		TreeNodeP deep = shallow == one ? two : one;
 		for (int i = 0; i < diff; i++) {
