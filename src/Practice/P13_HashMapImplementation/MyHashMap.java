@@ -72,12 +72,14 @@ public class MyHashMap<K, V> {
 		// corner case: if the head is the to be removed Entry
 		if (checkKeyEquals(curr.getKey(), key)) {
 			array[index] = curr.next;
+			size--;
 			return curr.getValue();
 		}
 
 		while (curr != null) {
 			if (checkKeyEquals(curr.getKey(), key)) {
 				prev.next = curr.next;
+				size--;
 				return curr.getValue();
 			}
 			curr = curr.next;
