@@ -22,7 +22,8 @@ public class Test_PrintNPairsOfIf {
 	 * 	    if{
 	 * 	    }
 	 * 	}
-	 *
+	 * Time Complexity: O(2^2n*n)
+	 * Space Complexity: O(2n) = O(n)
 	 * @param N
 	 */
 	public void printNPairOfIf(int N) {
