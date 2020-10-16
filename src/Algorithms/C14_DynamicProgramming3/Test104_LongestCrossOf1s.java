@@ -1,8 +1,5 @@
 package Algorithms.C14_DynamicProgramming3;
 
-import Design.D2_ParkingLotExp.Test;
-import com.laicode.Test104_LongestCrossof1s;
-
 public class Test104_LongestCrossOf1s {
 	public int largest(int[][] matrix) {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
