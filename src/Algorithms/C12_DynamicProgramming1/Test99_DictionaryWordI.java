@@ -16,7 +16,7 @@ public class Test99_DictionaryWordI {
 
 		for (int i = 1; i <= input.length(); i++) {
 			boolean exist = false;
-			for (int j = 0; j <= i; j++) {
+			for (int j = 0; j <= i - 1; j++) {
 				// leftSeg: [0, j), size = j - 0 = j
 				boolean left = M[j];
 				// rightSeg: [j, i)
