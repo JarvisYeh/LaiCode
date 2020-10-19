@@ -16,10 +16,10 @@ public class Test215_ReconstructBinaryTreeWithLevelorderAndInorder {
 		for (int i : levelOrder) {
 			level.add(i);
 		}
-		return reconstruct(inOrder, 0, inOrder.length - 1, level, indexMap);
+		return reconstruct(level, indexMap);
 	}
 
-	private TreeNode reconstruct(int[] in, int inLeft, int inRight, List<Integer> level, HashMap<Integer, Integer> indexMap) {
+	private TreeNode reconstruct(List<Integer> level, HashMap<Integer, Integer> indexMap) {
 		if (level.size() == 0) {
 			return null;
 		}
@@ -40,8 +40,8 @@ public class Test215_ReconstructBinaryTreeWithLevelorderAndInorder {
 				 levelRight.add(curr);
 			}
 		}
-		root.left = reconstruct(in, inLeft, rootIndex - 1, levelLeft, indexMap);
-		root.right = reconstruct(in, rootIndex + 1, inRight, levelRight, indexMap);
+		root.left = reconstruct(levelLeft, indexMap);
+		root.right = reconstruct(levelRight, indexMap);
 		return root;
 	}
 }
