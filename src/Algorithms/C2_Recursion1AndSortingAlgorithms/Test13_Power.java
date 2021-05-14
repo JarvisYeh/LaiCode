@@ -32,8 +32,35 @@ public class Test13_Power {
         }
     }
 
+    /**
+     * Binary search to find the power
+     * use iteration
+     * @param a
+     * @param b
+     * @return
+     */
+    public long powerIteration(int a, int b) {
+        if (b == 0) {
+            return 1;
+        }
+
+        int remain = b;
+        long result = 1;
+        while (remain > 0) {
+            int count = 1;
+            long power = a;
+            while ((count << 1) <= remain) {
+                power *= power;
+                count <<= 1;
+            }
+            result *= power;
+            remain -= count;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         Test13_Power test13_power = new Test13_Power();
-        System.out.println(test13_power.power(2, 10));
+        System.out.println(test13_power.powerIteration(0, 10));
     }
 }
