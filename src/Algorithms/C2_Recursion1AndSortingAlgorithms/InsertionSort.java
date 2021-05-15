@@ -1,7 +1,5 @@
 package Algorithms.C2_Recursion1AndSortingAlgorithms;
 
-import java.util.Arrays;
-
 public class InsertionSort {
 	public void insertionSort(int[] arr) {
 		for (int i = 1; i < arr.length; i++) {
