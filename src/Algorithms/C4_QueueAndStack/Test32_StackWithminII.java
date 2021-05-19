@@ -12,6 +12,7 @@ import java.util.LinkedList;
  */
 public class Test32_StackWithminII {
     Deque<Integer> stack;
+    // Entry class is custom class in util package
     Deque<Entry<Integer, Integer>> min;
 
     public Test32_StackWithminII() {
