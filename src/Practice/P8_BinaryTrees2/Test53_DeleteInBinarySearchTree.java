@@ -44,7 +44,9 @@ public class Test53_DeleteInBinarySearchTree {
 			if (root.right.left == null) {
 				root.right.left = root.left;
 				return root.right;
-			} else {
+			}
+			// case 4.2
+			else {
 				TreeNode targetNode = root;
 				TreeNode curr = root.right.left;
 				TreeNode prev = root.right;
@@ -102,7 +104,7 @@ public class Test53_DeleteInBinarySearchTree {
 			if (targetNode.right.left == null) {
 				targetNode.right.left = targetNode.left;
 				nodeToReplaceTarget = targetNode.right;
-			} else {
+			} else { // case 4.2
 				TreeNode curr2 = targetNode.right.left;
 				TreeNode prev2 = targetNode.right;
 				while (curr2.left != null) {
