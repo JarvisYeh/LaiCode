@@ -128,10 +128,46 @@ public class Test53_DeleteInBinarySearchTree {
 		return root;
 	}
 
+
+	/**
+	 * Not replace the node but replace value in node
+	 * @param root
+	 * @param target
+	 * @return
+	 */
+	TreeNode deleteTreeIII(TreeNode root, int target) {
+		if (root == null) {
+			return root;
+		}
+
+		if (target < root.key) {
+			root.left = deleteTreeIII(root.left, target);
+		} else if (target > root.key) {
+			root.right = deleteTreeIII(root.right, target);
+		} else {
+			// target found: root
+			// case 1, 2, 3: if root has only one child or has no child
+			if (root.left == null) {
+				return root.right;
+			} else if (root.right == null) {
+				return root.left;
+			}
+
+			// case 4: if root has two children
+			TreeNode min = root.right;
+			while (min.left != null) {
+				min = min.left;
+			}
+			root.key = min.key;
+			root.right = deleteTreeIII(root.right, min.key);
+		}
+		return root;
+	}
+
 	public static void main(String[] args) {
 		Test53_DeleteInBinarySearchTree test = new Test53_DeleteInBinarySearchTree();
 		TreeNode root = TreeNode.formTreeByLayer(new Integer[] {2,1,3});
 		TreeNode.printTree(root);
-		TreeNode.printTree(test.deleteTreeII(root, 1));
+		TreeNode.printTree(test.deleteTreeIII(root, 1));
 	}
 }
