@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Test56_Bipartite {
-	public boolean isBipartite(List<GraphNode> graph) {
+	/**
+	 * Use BFS
+	 * @param graph
+	 * @return
+	 */
+	public boolean isBipartiteI(List<GraphNode> graph) {
 		HashMap<GraphNode, Integer> expanded = new HashMap<>();
 		for (GraphNode startNode : graph) {
 			if (!BFS(startNode, expanded)) {
@@ -46,6 +51,41 @@ public class Test56_Bipartite {
 						continue;
 					}
 				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Use DFS
+	 * @param graph
+	 * @return
+	 */
+	public boolean isBipartiteII(List<GraphNode> graph) {
+		HashMap<GraphNode, Integer> map = new HashMap<>();
+		for (GraphNode n : graph) {
+			if (map.containsKey(n)) {
+				continue;
+			} else if (!validNode(n, 1, map)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean validNode(GraphNode node, int supposedColor, HashMap<GraphNode, Integer> map) {
+		// base case
+		if (map.containsKey(node)) {
+			return map.get(node) == supposedColor;
+		}
+
+		// add current node into map, current node is traversed
+		map.put(node, supposedColor);
+
+		// check all its neighbors, one invalid return false
+		for (GraphNode nei : node.neighbours) {
+			if (!validNode(nei, - supposedColor, map)) {
+				return false;
 			}
 		}
 		return true;
