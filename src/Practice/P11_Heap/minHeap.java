@@ -47,7 +47,8 @@ public class minHeap {
 
 	private void percolateDown(int index) {
 		// while it's node leaf node, it has at least left child
-		while (index <= array.length - 1) {
+		// last none leave node index = ((size - 1) - 1)/2 = size/2 - 1
+		while (index <= size/2 - 1) {
 			int left = 2 * index + 1;
 			int right = 2 * index + 2;
 
@@ -56,7 +57,7 @@ public class minHeap {
 
 			// if the node has right child and its value is less
 			// change candidate to right child
-			if (right < array.length && array[right] < array[left]) {
+			if (right < size && array[right] < array[left]) {
 				toBeSwap = right;
 			}
 
