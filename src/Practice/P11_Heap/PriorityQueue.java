@@ -137,7 +137,8 @@ public class PriorityQueue<E> {
 
 	// heapify the pq
 	private void heapify(Object[] arr) {
-		for (int i = arr.length - 1; i >= 0; i--) {
+		// heapify start form last parent
+		for (int i = ((arr.length - 1) - 1)/2; i >= 0; i--) {
 			percolateDown(i);
 		}
 	}

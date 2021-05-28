@@ -38,7 +38,9 @@ public class minHeap {
 	}
 
 	private void heapify() {
-		for (int i=array.length - 1; i>=0; i--) {
+		int lastEleIndex = size - 1;
+		int lastParentIndex = (lastEleIndex - 1)/2;
+		for (int i=lastParentIndex; i>=0; i--) {
 			percolateDown(array[i]);
 		}
 	}
