@@ -19,10 +19,7 @@ public class Test26_KthSmallestNumberInSortedMatrix {
 		Queue<Cell> minHeap = new PriorityQueue<>(k, new Comparator<Cell>() {
 			@Override
 			public int compare(Cell c1, Cell c2) {
-				if (c1.val == c2.val) {
-					return 0;
-				}
-				return c1.val < c2.val ? -1 : 1;
+				return Integer.compare(c1.val, c2.val);
 			}
 		});
 
