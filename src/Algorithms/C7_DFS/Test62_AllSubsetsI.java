@@ -38,6 +38,30 @@ public class Test62_AllSubsetsI {
 	}
 
 
+	/**
+	 * Method 2: bit manipulation
+	 * @param set
+	 * @return
+	 */
+	public List<String> subSetsII(String set) {
+		List<String> res = new ArrayList<>();
+		int total = 1 << set.length();
+		for (int i = 0; i < total; i++) { // len(nums) = 2 => i = 00, 01, 10, 11
+			StringBuilder sb = new StringBuilder();
+			// check each position of nums
+			// len(nums) = 2 => j = position 0, position 1
+			for (int j = 0; j < set.length(); j++) {
+				// if j-th bit is 1, meaning position j is in this specific subset
+				// add set[j] into this subset
+				if ((i >> j & 1) == 1) {
+					sb.append(set.charAt(j));
+				}
+			}
+			res.add(sb.toString());
+		}
+		return res;
+	}
+
 	public static void main(String[] args) {
 		Test62_AllSubsetsI test = new Test62_AllSubsetsI();
 		List<String> res = test.subSets("abc");
