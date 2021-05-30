@@ -1,4 +1,4 @@
-package Algorithms.C7_HashTableAndString1;
+package Algorithms.C8_HashTableAndString1;
 
 import java.util.HashSet;
 
