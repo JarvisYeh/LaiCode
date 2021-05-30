@@ -8,7 +8,7 @@ public class Test73_CombinationsOfCoins {
 	 * 给一个target钱数，给一个coins type array e.g.[99, 25, 5, 2]
 	 * 返回每个coins数量的组合，使得总和正好等于target
 	 *
-	 *  这里在谈论时空复杂度的时候，targe = 99, coins = [99, 25, 5, 2]
+	 *  这里在谈论时空复杂度的时候，target = 99, coins = [99, 25, 5, 2]
 	 * 	Each level has states representing how many coins for that certain type we want, e.g. one 25, two 25, two 25, ...
 	 * 	Level amount = Coin type amount = 4
 	 * Time Complexity: O(99^4)
