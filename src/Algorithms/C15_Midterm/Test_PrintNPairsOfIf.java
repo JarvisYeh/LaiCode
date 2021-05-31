@@ -1,8 +1,5 @@
 package Algorithms.C15_Midterm;
 
-import sun.lwawt.macosx.CSystemTray;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
