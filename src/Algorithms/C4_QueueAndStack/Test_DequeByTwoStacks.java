@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /**
- * Amortized complexity for calling pollFirst() pollLast() alternatively is
+ * Amortized complexity for calling pollFirst() pollLast() in turns is
  * O([(n-1) + (n-1) +...+ 1]/n) = O(n), Need shuffle everytime
  * left : 1 2 3 4 5][6 7 8 9 10 : right
  */
