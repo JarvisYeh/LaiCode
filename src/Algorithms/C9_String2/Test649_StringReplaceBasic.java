@@ -15,7 +15,7 @@ public class Test649_StringReplaceBasic {
 		char[] s = source.toCharArray();
 		char[] t = target.toCharArray();
 
-		HashSet<Integer> matchIndexSet = findMatchIndex(ori, s, t);
+		HashSet<Integer> matchIndexSet = findMatchIndex(ori, s);
 
 		char[] res = new char[ori.length + (t.length - s.length)*matchIndexSet.size()];
 		int i=0, j=0;
@@ -39,7 +39,7 @@ public class Test649_StringReplaceBasic {
 	 * obtain the hash set contains the start index
 	 * of each matching position
 	 **/
-	private HashSet<Integer> findMatchIndex(char[] ori, char[] s, char[] t) {
+	private HashSet<Integer> findMatchIndex(char[] ori, char[] s) {
 		HashSet<Integer> res = new HashSet<>();
 		for (int i = 0; i <= ori.length - s.length; i++) {
 			if (checkEquals(ori, i, s)) {
