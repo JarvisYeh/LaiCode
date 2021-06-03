@@ -1,7 +1,22 @@
 package Algorithms.C9_String2;
 
 public class Test1470_ShuffleTheArray {
-	public int[] shuffle(int[] array, int n) {
+	// not in place
+	// SC: O(n)
+	public int[] shuffleI(int[] nums, int n) {
+		int[] res = new int[nums.length];
+		int j = 0;
+		for (int i = 0; i < n; i++) {
+			res[j] = nums[i];
+			res[j + 1] = nums[n + i];
+			j += 2;
+		}
+		return res;
+	}
+
+	// in place
+	// SC: O(log n)
+	public int[] shuffleII(int[] array, int n) {
 		shuffle(array, 0, array.length - 1);
 		return array;
 	}
@@ -46,7 +61,7 @@ public class Test1470_ShuffleTheArray {
 
 	public static void main(String[] args) {
 		Test1470_ShuffleTheArray t = new Test1470_ShuffleTheArray();
-		for (int i : t.shuffle(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 5)) {
+		for (int i : t.shuffleII(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 5)) {
 			System.out.print(i + " ");
 		}
 	}
