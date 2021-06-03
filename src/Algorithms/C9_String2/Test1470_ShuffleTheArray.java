@@ -24,7 +24,7 @@ public class Test1470_ShuffleTheArray {
 	private void shuffle(int[] arr, int l, int r) {
 		// divide current range into 4 chunks
 		// if the range can not be divided into 4 chunks anymore, return
-		if (r - l <= 2) { // e.g. len(l ~ r) <= 3
+		if (r - l <= 1) { // e.g. len(l ~ r) <= 3
 			return;
 		}
 
