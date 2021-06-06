@@ -1,5 +1,7 @@
 package Practice.P13_HashMapImplementation;
 
+import java.util.Objects;
+
 public class MyHashMap<K, V> {
 	private int capacity;
 	private int size;
@@ -95,18 +97,23 @@ public class MyHashMap<K, V> {
 	 * before using equals, make sure k1.getKey() are not null
 	 */
 	private boolean checkKeyEquals(K key1, K key2) {
-		return key1 == key2 || key1 != null && key1.equals(key2);
+		// Objects.equals(o1, o2) will do null checking and return false if only one if null
+		return Objects.equals(key1, key2);
+		// same as return (key1 == key2) || (key1 != null && key1.equals(key2));
 	}
 
 	/**
 	 * if key == null, entry are store in array[0]
 	 **/
 	private int getIndex(K key) {
-		if (key == null) {
-			return 0;
-		}
-		// make sure LHS is 0 so that hash number is a positive number
-		int hashNumber = key.hashCode() & 0x7FFFFFFF;
+//		if (key == null) {
+//			return 0;
+//		}
+//		int hashNumber = key.hashCode() & 0x7FFFFFFF;
+
+		// Objects.hashCode(key) has the exact same functionality with above code
+		// e.g. returns 0 if null, else call obj.hashCode()
+		int hashNumber = Objects.hashCode(key) & 0x7FFFFFFF; // make sure LHS is 0 so that hash number is a positive number
 		return hashNumber % this.capacity;
 	}
 
