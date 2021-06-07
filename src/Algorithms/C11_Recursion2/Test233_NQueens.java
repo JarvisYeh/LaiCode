@@ -48,7 +48,7 @@ public class Test233_NQueens {
 			if (curr.get(i) == col) {
 				return false;
 			}
-			// two queens在同一斜线上，chekc not pass
+			// two queens在同一斜线上，check not pass
 			if (Math.abs(curr.get(i) - col) == row - i) {
 				return false;
 			}
