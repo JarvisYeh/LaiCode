@@ -51,8 +51,8 @@ public class Test87_MaxProductOfCuttingRope {
 	 * <p>
 	 * Example:
 	 * rope(8)
-	 * |             \				\	  \\\	 \
-	 * rope(7)*1	rope(6)*2	rope(5)*3 ...  rope(1)*7
+	 * |                    \				       \	           \\\	  	\
+	 * max(7, rope(7))*1	max(7, rope(6))*2	max(5, rope(5))*3  ...   max(1, rope(1))*7
 	 * ...
 	 */
 	public int maxProductII(int length) {

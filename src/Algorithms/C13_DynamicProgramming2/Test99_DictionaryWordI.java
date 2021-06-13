@@ -13,6 +13,8 @@ public class Test99_DictionaryWordI {
 		// M[i] represents size i subString [0, i) can be break into dictionary or not
 		boolean[] M = new boolean[input.length() + 1];
 		// "" assume empty string can be break into dictionary set
+		// if interviewer ask for "" to be false, set it as the separate corner case
+		// 	i.e. if (input == "") return false;
 		M[0] = true;
 		for (int i = 0; i <= M.length; i++) {
 			for (int j = 0; j < i; j++) {
