@@ -2,7 +2,7 @@ package Algorithms.C13_DynamicProgramming2;
 
 public class Test101_LargestSquareOf1s {
 	/**
-	 * M[i][j]代表以i, j为右下角的全1正方形最大变长
+	 * M[i][j]代表以i, j为右下角的全1正方形最大边长
 	 * Time Complexity: O(n^2)
 	 * Space Complexity: O(n^2)
 	 **/
