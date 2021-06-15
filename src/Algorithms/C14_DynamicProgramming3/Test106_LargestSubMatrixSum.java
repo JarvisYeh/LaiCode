@@ -176,4 +176,37 @@ public class Test106_LargestSubMatrixSum {
 		return max;
 	}
 
+	// Solution 3
+	// 只使用一个flatten array
+	public int largest(int[][] matrix) {
+		int m = matrix.length, n = matrix[0].length;
+
+		int max = Integer.MIN_VALUE;
+
+		for (int i1 = 0; i1 < m; i1++) {				// top bar
+			// flatten[j] stores sum_{i = i1->i2}{mat[i][j]}
+			// initialize as all 0s
+			int[] flatten = new int[n];
+
+			for (int i2 = i1; i2 < m; i2++) {			// bottom bar
+				// calculate flatten
+				for (int j = 0; j < n; j++) {
+					flatten[j] += matrix[i2][j];
+				}
+
+				// find largest sum of subarray problem
+				int currSum = 0;
+				for (int j = 0; j < n; j++) {
+					if (currSum < 0) {
+						currSum = flatten[j];
+					} else {
+						currSum += flatten[j];
+					}
+					max = Math.max(currSum, max);
+				}
+			}
+		}
+		return max;
+	}
+
 }
