@@ -179,8 +179,8 @@ public class Test106_LargestSubMatrixSum {
 	/**
 	 * Solution 3.2:
 	 * flatten[j] 存 matrix[i1][j] ~ matrix[i2][j]之和
-	 * 每次i2+1, 所有的flatten[j]更新
-	 * 每次i1变化，生成新的flatten
+	 * 每次i2+1（下边界+1）, 所有的flatten[j]更新
+	 * 每次i1（上边界）变化，生成新的flatten
 	 * Time Complexity: O(n^3)
 	 * Space Complexity: O(n)
 	 **/
