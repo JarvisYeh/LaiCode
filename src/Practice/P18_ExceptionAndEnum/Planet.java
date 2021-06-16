@@ -34,7 +34,7 @@ public enum Planet {
 		for (Planet p : Planet.values()) {
 			System.out.printf("Your weight on %s is %f%n", p, p.surfaceWeight(mass));
 		}
-		Planet p = Planet.EARTH;
-		System.out.println(Planet.valueOf("EARTH"));
+		Planet p = Planet.valueOf("EARTH");
+		System.out.println("index of EARTH: " + p.ordinal());
 	}
 }
