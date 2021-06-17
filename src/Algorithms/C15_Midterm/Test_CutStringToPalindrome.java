@@ -2,12 +2,13 @@ package Algorithms.C15_Midterm;
 
 public class Test_CutStringToPalindrome {
 	/**
+	 * Method 1: use DP tp store min cuts
 	 * Time Complexity: O(n^3)
 	 * Space Complexity: O(n)
 	 * @param input
 	 * @return
 	 */
-	public int minimalCut(String input) {
+	public int minimalCutI(String input) {
 		// M represents the minimal cut it needed for [0, i] to be a palindrome
 		int[] M = new int[input.length()];
 		// single character is already a palindrome
@@ -58,9 +59,56 @@ public class Test_CutStringToPalindrome {
 		return true;
 	}
 
+	/**
+	 * Method 2:
+	 * use DP to store whether s[i][j] is a palindrome
+	 * and use DP to store minCuts[i]
+	 * Time Complexity: O(n^2)
+	 * Space Complexity: O(n^2)
+	 * @param s
+	 * @return
+	 */
+	public int minimalCutII(String s) {
+		// mc[i]: the minimal curt to cut s[0, i] to all palindrome
+		int[] mc = new int[s.length()];
+		// isPalindrome[j][i]: whether s[j][i] is palindrome
+		boolean[][] isPal = new boolean[s.length()][s.length()];
+		mc[0] = 0;
+
+		// calculate isPal[i][j]
+		// O(n^2)
+		for (int i = 1; i < s.length(); i++) {
+			for (int j = 0; j <= i; j++) {
+				if (s.charAt(i) == s.charAt(j) && (i - j <= 1 || isPal[j + 1][i - 1])) {
+					isPal[j][i] = true;
+				}
+			}
+		}
+
+		// calculate mc[i]
+		// O(n^2)
+		for (int i = 1; i < s.length(); i++) {
+			if (isPal[0][i]) {
+				mc[i] = 0;
+				continue;
+			}
+			// s[0, i] has i gaps, maximum cut = i
+			int minCut = i;
+			// left : [0, j]
+			// right : (j, i], size = i - j > 0
+			for (int j = 0; j < i; j++) {
+				if (isPal[j + 1][i]) {
+					minCut = Math.min(mc[j] + 1, minCut);
+				}
+			}
+			mc[i] = minCut;
+		}
+		return mc[s.length() - 1];
+	}
+
 	public static void main(String[] args) {
 		Test_CutStringToPalindrome test = new Test_CutStringToPalindrome();
-		System.out.println(test.minimalCut("ababbbabbababa"));
+		System.out.println(test.minimalCutII("ababbbabbababa"));
 	}
 
 }
