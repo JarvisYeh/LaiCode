@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Test648_LowestCommonAncestorVI {
+	// LCA of P nodes of K-nary Tree
 	public KnaryTreeNode lowestCommonAncestor(KnaryTreeNode root, List<KnaryTreeNode> nodes) {
 		if (root == null || nodes.contains(root)) {
 			return root;
