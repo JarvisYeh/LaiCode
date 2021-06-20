@@ -2,7 +2,7 @@ package Algorithms.C17_CrossTraining1;
 
 import java.util.Arrays;
 
-public class Test_ArrayDeduplicationIV {
+public class Test118_ArrayDeduplicationIV {
 	// unsroted array消除连续元素，不重复删除
 	// 123321 => 1221
 	public int[] deDup(int[] array) {
