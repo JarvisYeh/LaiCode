@@ -3,26 +3,27 @@ package Algorithms.C17_CrossTraining1;
 import java.util.Arrays;
 
 public class Test118_ArrayDeduplicationIV {
-	// unsroted array消除连续元素，不重复删除
-	// 123321 => 1221
-	public int[] deDup(int[] array) {
-		// keep[0, slow)
-		// check array[fast] and onwards, not keep same elements
+	// unsorted array, repeatedly removal
+	// 对unsorted array也适用
+	public int[] dedup(int[] array) {
 		int slow = 0;
 		int fast = 0;
+		// keep [0, slow)
 		while (fast < array.length) {
-			int newFast = fast + 1;
-			while (newFast < array.length && array[fast] == array[newFast]) {
-				newFast++;
-			}
-			// after the loop newFast is the first index that its content != array[fast]
-			// if there are no duplicate elements in [fast, newFast]
-			if (newFast - fast == 1) {
+			// keep
+			if (slow == 0 || array[fast] != array[slow - 1]) {
 				array[slow++] = array[fast++];
-			} else {
-				fast = newFast;
+			}
+			// skip all same elements afterwards
+			// also throw away the original kept array[slow - 1]
+			else {
+				while (fast < array.length && array[fast] == array[slow - 1]) {
+					fast++;
+				}
+				slow--;
 			}
 		}
 		return Arrays.copyOf(array, slow);
+
 	}
 }

@@ -3,28 +3,33 @@ package Algorithms.C17_CrossTraining1;
 import java.util.Arrays;
 
 public class Test117_ArrayDeduplicationIII {
-	// sorted array只要有连续的就全部消除
-	// 对unsorted array也适用
-	public int[] dedup(int[] array) {
+	// sorted array, not repeatedly removal
+	// 因为是sorted本身就不可能repeatedly removal
+	// 1233 => 12
+	public int[] deDup(int[] array) {
+		// keep[0, slow)
+		// check array[fast] and onwards, not keep same elements
 		int slow = 0;
 		int fast = 0;
-		// keep [0, slow)
 		while (fast < array.length) {
-			// keep
-			if (slow == 0 || array[fast] != array[slow - 1]) {
-				array[slow++] = array[fast++];
+			int newFast = fast + 1;
+			while (newFast < array.length && array[fast] == array[newFast]) {
+				newFast++;
 			}
-			// skip all same elements afterwards
-			// also throw away the original kept array[slow - 1]
-			else {
-				while (fast < array.length && array[fast] == array[slow - 1]) {
-					fast++;
-				}
-				slow--;
+			// after the loop newFast is the first index that its content != array[fast]
+			// if there are no duplicate elements in [fast, newFast]
+			if (newFast - fast == 1) {
+				array[slow++] = array[fast++];
+			} else {
+				fast = newFast;
 			}
 		}
 		return Arrays.copyOf(array, slow);
+	}
 
+	public static void main(String[] args) {
+		Test117_ArrayDeduplicationIII t = new Test117_ArrayDeduplicationIII();
+		System.out.println(Arrays.toString(t.deDup(new int[]{1, 2, 2, 1, 3, 3, 4, 4})));
 	}
 
 }
