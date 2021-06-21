@@ -8,28 +8,33 @@ import java.util.Iterator;
 
 public class InOrderIterator implements Iterator<TreeNode> {
 	Deque<TreeNode> stack;
-	TreeNode curr;
+
+	// push all left path until null
 	public InOrderIterator(TreeNode root) {
 		stack = new ArrayDeque<>();
-		curr = root;
+		while (root != null) {
+			stack.offerFirst(root);
+			root = root.left;
+		}
 	}
 
 	@Override
 	public boolean hasNext() {
-		return !stack.isEmpty() || curr != null;
+		return !stack.isEmpty();
 	}
 
 	@Override
 	public TreeNode next() {
-		while (hasNext()) {
-			if (curr != null) {
-				stack.offerFirst(curr);
-				curr = curr.left;
-			} else {
-				TreeNode next = stack.pollFirst();
-				curr = next.right;
-				return next;
+		if (hasNext()) {
+			TreeNode curr = stack.pollFirst();
+			if (curr.right != null) {
+				TreeNode tmp = curr.right;
+				while (tmp != null) {
+					stack.offerFirst(tmp);
+					tmp = tmp.left;
+				}
 			}
+			return curr;
 		}
 		return null;
 	}
