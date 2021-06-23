@@ -8,9 +8,9 @@ import java.util.List;
 public class Test181_2SumAllPairI {
 	// unsorted array
 	// 返回list of index pairs
+	// 因为是list of index pair，实际上的数字可能会重复，比如<2, 4> <2, 4>中的2可能是不同的index，所以是两个结果
 	public List<List<Integer>> allPairs(int[] array, int target) {
-		// indexMap中存[0, i)的数据分布情况
-		// key = number value, value = index list of that number
+		// key = number value, value = list of index that number
 		HashMap<Integer, List<Integer>> indexMap = new HashMap<>();
 
 		// result list

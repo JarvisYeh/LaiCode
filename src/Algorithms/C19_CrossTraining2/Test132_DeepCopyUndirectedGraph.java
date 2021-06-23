@@ -51,27 +51,25 @@ public class Test132_DeepCopyUndirectedGraph {
 		}
 		List<GraphNode> copyList = new ArrayList<>();
 		Map<GraphNode, GraphNode> map = new HashMap<>();
-		for (GraphNode g : graph) {
-			map.put(g, new GraphNode(g.key));
-			copyList.add(map.get(g));
-		}
+
 		for (GraphNode startNode : graph) {
-			DFS(startNode, map);
+			copyList.add(DFS(startNode, map));
 		}
 		return copyList;
 	}
 
 	private GraphNode DFS(GraphNode g, Map<GraphNode, GraphNode> map) {
-		if (!map.containsKey(g)) {
-			map.put(g, new GraphNode(g.key));
+		// base case, generated and copied before
+		if (map.containsKey(g)) {
+			return map.get(g);
 		}
 
+		// copy that node
+		// 1. put <ori, new> into map
+		// 2. recursively add neighbors node to neighbors list
+		map.put(g, new GraphNode(g.key));
 		for (GraphNode nei : g.neighbors) {
-			if (!map.containsKey(nei)) {
-				map.get(g).neighbors.add(DFS(nei, map));
-			} else {
-				map.get(g).neighbors.add(map.get(nei));
-			}
+			map.get(g).neighbors.add(DFS(nei, map));
 		}
 		return map.get(g);
 	}
