@@ -16,7 +16,7 @@ public List<List<Integer>> allTriples(int[] array, int target) {
 		if (i - 1 >= 0 && array[i] == array[i - 1]) {
 			continue;
 		}
-
+		// do two sum for range (i, end)
 		int j = i + 1, k = array.length - 1;
 		int innerTarget = target - array[i];
 		while (j < k) {
