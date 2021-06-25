@@ -36,6 +36,40 @@ public class LeetCode18_4SumAllPair {
 		return res;
 	}
 
+	// generalize to k-sum w.r.t. sorted array
+	// return all combination without duplications
+	public List<List<Integer>> kSum(int[] nums, int l, int r, int target, int k) {
+		if (k == 2) {
+			List<List<Integer>> twoSumPairs = new ArrayList<>();
+			while (l < r) {
+				if (nums[l] + nums[r] > target) {
+					r--;
+				} else if (nums[l] + nums[r] < target) {
+					l++;
+				} else {
+					twoSumPairs.add(new ArrayList<>(Arrays.asList(nums[l], nums[r])));
+					// skip duplicates
+					while (l < r && nums[l] == nums[l + 1]) l++;
+					while (l < r && nums[r] == nums[r - 1]) r--;
+					l++;
+					r--;
+				}
+			}
+			return twoSumPairs;
+		} else {
+			List<List<Integer>> res = new ArrayList<>();
+			for (int i = l; i <= r; i++) {
+				// skip duplicates
+				if (i > l && nums[i] == nums[i - 1]) continue;
+				for (List<Integer> tmp : kSum(nums, i + 1, r, target - nums[i], k - 1)) {
+					tmp.add(nums[i]);
+					res.add(tmp);
+				}
+			}
+			return res;
+		}
+	}
+
 	public static void main(String[] args) {
 		LeetCode18_4SumAllPair t = new LeetCode18_4SumAllPair();
 		t.fourSum(new int[]{2,2,2,2,2}, 8);
