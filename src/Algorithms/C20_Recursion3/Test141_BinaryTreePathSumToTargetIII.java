@@ -13,44 +13,44 @@ public class Test141_BinaryTreePathSumToTargetIII {
 	 * 对于每个节点到root的路径，分别计算O(h)次，看是否存在满足target的值
 	 * Time Complexity: O(n*height)
 	 * Space Complexity: O(h) prefixNodeList
-	 * @param root
-	 * @param target
-	 * @return
 	 */
 	public boolean exist(TreeNode root, int target) {
-		List<TreeNode> prefix = new ArrayList<>();
+		List<Integer> prefix = new ArrayList<>();
 		return exist(root, prefix, target);
 	}
 
-	private boolean exist(TreeNode root, List<TreeNode> prefix, int target) {
+	private boolean exist(TreeNode root, List<Integer> prefix, int target) {
 		if (root == null) {
 			return false;
 		}
 
-		prefix.add(root);
-		boolean currentExist = checkExist(prefix, target);
-		boolean leftExist = exist(root.left, prefix, target);
-		boolean rightExist = exist(root.right, prefix, target);
-		prefix.remove(prefix.size() - 1);
-		return leftExist || rightExist || currentExist;
-	}
+		// add current node into prefix list
+		prefix.add(root.key);
 
-	private boolean checkExist(List<TreeNode> prefix, int target) {
+		// current level
+		// check if there exist a sub-path (must including curr node) sum = target
 		int sum = 0;
 		for (int i = prefix.size() - 1; i >= 0; i--) {
-			sum += prefix.get(i).key;
+			sum += prefix.get(i);
 			if (sum == target) {
 				return true;
 			}
 		}
-		return false;
+
+		// ask children if there exist a sub-path
+		boolean leftExist = exist(root.left, prefix, target);
+		boolean rightExist = exist(root.right, prefix, target);
+
+		// before return to previous node, remove current node value from prefix list
+		prefix.remove(prefix.size() - 1);
+		return leftExist || rightExist;
 	}
 
 	/**
 	 * Method 2:
 	 * Combine with DP
 	 * prefixSum存[root, current]的所有值的sum
-	 * hashSet存[root, i]的sum，i range from[root, current]
+	 * hashSet存[root, i]的sum，i range from[root, current)
 	 * 让每个节点检查prefixSum - target是否存在hashSet中
 	 * @param root
 	 * @param target
@@ -73,6 +73,7 @@ public class Test141_BinaryTreePathSumToTargetIII {
 			return true;
 		}
 
+		// if the set already contains prefixSum, no need to remove it before return to previous level
 		boolean successAdded = prefixSums.add(prefixSum);
 
 		// if left or right returns false, no action is taken
@@ -84,9 +85,9 @@ public class Test141_BinaryTreePathSumToTargetIII {
 		if (root.right != null && existII(root.right, prefixSum, prefixSums, target)) {
 			return false;
 		}
-		if (successAdded) {
-			prefixSums.remove(prefixSum);
-		}
+
+		// check if it's this level's duty to remove prefixSum
+		if (successAdded) { prefixSums.remove(prefixSum); }
 		return false;
 	}
 

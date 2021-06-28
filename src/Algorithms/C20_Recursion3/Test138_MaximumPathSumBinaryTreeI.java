@@ -2,6 +2,7 @@ package Algorithms.C20_Recursion3;
 
 import util.TreeNode;
 
+// max sum of path from one leaf to another leaf
 public class Test138_MaximumPathSumBinaryTreeI {
 	public int maxPathSum(TreeNode root) {
 		int[] maxRes = new int[1];

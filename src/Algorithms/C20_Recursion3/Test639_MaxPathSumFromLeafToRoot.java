@@ -2,6 +2,8 @@ package Algorithms.C20_Recursion3;
 
 import util.TreeNode;
 
+// max sum of path from root to leaf
+
 public class Test639_MaxPathSumFromLeafToRoot {
 	// method 1: 从下往上传值
 	public int maxPathSumLeafToRootI(TreeNode root) {

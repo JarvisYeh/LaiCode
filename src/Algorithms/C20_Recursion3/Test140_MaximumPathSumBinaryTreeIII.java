@@ -3,10 +3,12 @@ package Algorithms.C20_Recursion3;
 import Design.D2_ParkingLotExp.Test;
 import util.TreeNode;
 
+// max sum of path from any node to any node (two nodes has to be a sub-path from root to leaf)
+
 public class Test140_MaximumPathSumBinaryTreeIII {
 	/**
 	 * Method 1:
-	 * DP with 从上往下传值
+	 * DP (maximum sum of subarray) with 从上往下传值
 	 **/
 	public int maxPathSum(TreeNode root) {
 		int[] maxSum = new int[1];
@@ -36,7 +38,7 @@ public class Test140_MaximumPathSumBinaryTreeIII {
 	 * Method 2:
 	 * DP with 从下往上传值
 	 * 传递的值是，以自己为root，向下的path中max sum为多少
-	 * 这个sum中必须包括自己
+	 * 这个path中必须包括自己
 	 */
 	public int maxPathSumII(TreeNode root) {
 		int[] maxSum = new int[1];
