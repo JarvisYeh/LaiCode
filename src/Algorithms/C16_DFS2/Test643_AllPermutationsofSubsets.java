@@ -43,7 +43,7 @@ public class Test643_AllPermutationsofSubsets {
 
 	public static void main(String[] args) {
 		Test643_AllPermutationsofSubsets test = new Test643_AllPermutationsofSubsets();
-		System.out.println(test.allPermutationsOfSubsets(""));
+		System.out.println(test.allPermutationsOfSubsets("abb"));
 	}
 
 }

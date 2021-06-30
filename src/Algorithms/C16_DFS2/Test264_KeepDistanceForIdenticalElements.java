@@ -5,71 +5,57 @@ import java.util.HashSet;
 
 public class Test264_KeepDistanceForIdenticalElements {
 	/**
+	 * Method 1:
+	 * determine index by index
 	 * permutation的过程中判断permutation是否合法
 	 * 利用hashset或者boolean array
 	 * 如果当前判断的元素没有出现过，则可以确定在该位置
-	 * 	并且加入hashset
 	 * 如果当前判断的元素之前出现过
-	 * 	判断是否可以放在该位置
-	 * 		arr[i - arr[i] - 1] == arr[i]
-	 * 	不可以跳过，判断下一个元素
-	 * @param k
-	 * @return
+	 * 判断是否可以放在该位置
+	 * 		num = arr[j]
+	 * 		arr[i - num - 1] == num
+	 * 可以进入下一层recursion（即决定下一个index的数字）
+	 * 不可以则判断当前层下一个元素
 	 */
-	public int[] keepDistance(int k) {
-		int[] res = new int[2*k];
-		int[] curr = new int[2*k];
-		for (int i = 0; i < 2*k; i++) {
-			curr[i] = i/2 + 1;
+	public int[] keepDistanceI(int k) {
+		int[] curr = new int[2 * k];
+		for (int i = 0; i < k; i++) {
+			curr[i] = curr[i + k] = i + 1;
 		}
 
-		HashSet<Integer> set = new HashSet<>();
-		DFS(0, set, curr, res);
-		return res[0] != 0 ? res : null;
+		// used[i] means number i is determined its position before
+		// number range from [1, k]
+		boolean[] used = new boolean[2*k  + 1];
+		return DFSI(0, used, curr) ? curr : null;
 	}
 
-	private void DFS(int index, HashSet<Integer> set, int[] curr, int[] res) {
+	private boolean DFSI(int index, boolean[] used, int[] curr) {
 		if (index == curr.length) {
-			for (int i = 0; i < res.length; i++) {
-				res[i] = curr[i];
-			}
-			return;
+			return true;
 		}
 
 		// all permutations
-		// hashset used for avoid duplicate elements in permutation
-		HashSet<Integer> deDup = new HashSet<>();
-		for (int j = index; j <curr.length; j++) {
-			// if it's not consider before, consider to swap this element
-			if (!deDup.contains(curr[j])) {
-				// 如果是这个元素第一次出现
-				// 确定该元素在该位置
-				if (!set.contains(curr[j])) {
-					swap(curr, index, j);
-					// 将该元素加入set，表明该元素确定过位置一次
-					set.add(curr[index]);
-					DFS(index + 1, set, curr, res);
-					set.remove(curr[index]);
-					swap(curr, index, j);
-				}
-				// 如果该元素已经确定过位置
-				else {
-					// 确定如果放置第二个元素在当前位置是否在合法
-					// 		合法的意思是，之前放置的元素和当前位置间隔该元素的值
-					// 		exp: 3xxx3
-					// 如果不合法检查下一个元素是否可以放在该位置，即continue
-					int prevIndex = index - curr[j] - 1;
-					if (prevIndex < 0 || curr[prevIndex] != curr[j]) {
-						continue;
-					}
-					swap(curr, index, j);
-					DFS(index + 1, set, curr, res);
-					swap(curr, index, j);
-				}
-				deDup.add(curr[j]);
+		for (int j = index; j < curr.length; j++) {
+			int num = curr[j];
+			// any number first time occurs, can be put in curr[index]
+			if (!used[num]) {
+				swap(curr, index, j);
+				used[num] = true;	// marked as used once
+				if (DFSI(index + 1, used, curr)) return true;
+				used[num] = false;
+				swap(curr, index, j);
+			}
+			// num occurs before
+			// check if it's legal to put it in curr[index]
+			// 		e.g. curr[index - num - 1] = num
+			// 		exp: 3xxx3
+			else if (index - num - 1 >= 0 && curr[index - num - 1] == num){
+				swap(curr, index, j);
+				if (DFSI(index + 1, used, curr)) return true;
+				swap(curr, index, j);
 			}
 		}
-
+		return false;
 	}
 
 	private void swap(int[] arr, int i, int j) {
@@ -79,38 +65,64 @@ public class Test264_KeepDistanceForIdenticalElements {
 	}
 
 	/**
-	 * Method2 : same as N queens
-	 * 在固定位置放置，直到放置不了，放到最后即为result
+	 * Method 2: determine index by index
+	 * not used swap to determine each positions
+	 * but loop from index = [1, curr.length) to check all index
+	 * use a int[] to count the times that a specific num is determined in current array
 	 */
 	public int[] keepDistanceII(int k) {
-		int[] res = new int[2*k];
+		// countUsed[i]: how many number i is determined position in current array
+		int[] countUsed = new int[k + 1];
 		int[] curr = new int[2*k];
-		DFSII(0, curr, res, k);
-		return res[0] == 0 ? null : res;
+		return helper(0, curr, countUsed, k) ? curr : null;
 	}
 
-	private void DFSII(int i, int[] curr, int[] res, int k) {
+	private boolean helper(int idx, int[] curr, int[] countUsed, int k) {
 		// base case
-		if (i == k + 1) {
-			for (int j = 0; j < res.length; j++) {
-				res[j] = curr[j];
-			}
-			return;
+		if (idx == curr.length) {
+			return true;
 		}
 
-		for (int j = 0; j < curr.length; j++) {
-			if (checkPass(curr, j, i)) {
-				curr[j] = i;
-				curr[j + i + 1] = i;
-				DFSII(i + 1, curr, res, k);
-				curr[j] = 0;
-				curr[j + i + 1] = 0;
+		// curr[0:idx] is all determined number as far as this level concerns
+		// check number form [i, k]
+		for (int i = 1; i <= k; i++) {
+			// first time occurs
+			// or 3xxx3
+			if (countUsed[i] == 0 || (countUsed[i] == 1 && idx - i - 1 >= 0 && curr[idx - i - 1] == i)) {
+				countUsed[i]++;
+				curr[idx] = i;
+				if (helper(idx + 1, curr, countUsed, k)) return true;
+				countUsed[i]--;
 			}
 		}
+		return false;
 	}
 
-	private boolean checkPass(int[] curr, int position, int target) {
-		return curr[position] == 0 && position + target + 1 < curr.length && curr[position + target + 1] == 0;
+	/**
+	 * Method3: determine pair by pair
+	 * check pairs from [1, k]
+	 */
+	public int[] keepDistanceIII(int k) {
+		int[] curr = new int[2 * k];
+		return DFSII(0, curr, k) ? curr : null;
+	}
+
+	private boolean DFSII(int n, int[] curr, int k) {
+		// base case: all k pairs are placed
+		if (n == k + 1) {
+			return true;
+		}
+
+		// check all index to put pair {n, n}
+		for (int idx = 0; idx < curr.length; idx++) {
+			// check if idx and idx + n + 1 haven't been placed
+			if (curr[idx] == 0 && idx + n + 1 < curr.length && curr[idx + n + 1] == 0) {
+				curr[idx] = curr[idx + n + 1] = n;
+				if (DFSII(n + 1, curr, k)) return true;
+				curr[idx] = curr[idx + n + 1] = 0;
+			}
+		}
+		return false;
 	}
 
 	public static void main(String[] args) {
