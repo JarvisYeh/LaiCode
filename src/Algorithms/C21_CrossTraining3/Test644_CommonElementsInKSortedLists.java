@@ -37,7 +37,7 @@ public class Test644_CommonElementsInKSortedLists {
 		return common;
 	}
 
-	// Method 1:
+	// Method 2:
 	// binary reduction
 	// TC: O(kn)
 	// SC: O(n + logk)

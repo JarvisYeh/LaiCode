@@ -4,44 +4,37 @@ import java.util.*;
 
 public class Test651_CommonNumbersOfTwoArraysII {
 	// method 1:
-	// use two tree map
-	// TS: O(nlogn + mlogm + nlogm)
+	// use two hashset
+	// TS: O(n + m)
 	// SC: O(n + m)
 	public List<Integer> commonI(int[] A, int[] B) {
 		List<Integer> res = new ArrayList<>();
-		TreeMap<Integer, Integer> mapA = new TreeMap<>();
-		TreeMap<Integer, Integer> mapB = new TreeMap<>();
+		HashMap<Integer, Integer> mapA = new HashMap<>();
+		HashMap<Integer, Integer> mapB = new HashMap<>();
 		for (int i : A) {
-			if (mapA.containsKey(i)) {
-				mapA.put(i, mapA.get(i) + 1);
-			} else {
-				mapA.put(i, 1);
-			}
+			int count = mapA.getOrDefault(i, 0);
+			mapA.put(i, count + 1);
 		}
 
 		for (int i : B) {
-			if (mapB.containsKey(i)) {
-				mapB.put(i, mapB.get(i) + 1);
-			} else {
-				mapB.put(i, 1);
-			}
+			int count = mapB.getOrDefault(i, 0);
+			mapB.put(i, count + 1);
 		}
 
 		for (Map.Entry<Integer, Integer> entry : mapA.entrySet()) {
 			int countA = entry.getValue();
-			if (mapB.containsKey(entry.getKey())) {
-				int countB = mapB.get(entry.getKey());
-				for (int i = 0; i < Math.min(countA, countB); i++) {
-					res.add(entry.getKey());
-				}
+			int countB = mapB.getOrDefault(entry.getKey(), 0);
+			for (int i = 0; i < Math.min(countA, countB); i++) {
+				res.add(entry.getKey());
 			}
 		}
+		res.sort(Integer::compare);
 		return res;
 	}
 
 	// method 2:
 	// sort first, then use pointers
-	// TC: O(nlogn + mlogm + min(n,m))
+	// TC: O(nlogn + mlogm + m + n)
 	// SC: O(1)
 	public List<Integer> commonII(int[] A, int[] B) {
 		List<Integer> res = new ArrayList<>();
