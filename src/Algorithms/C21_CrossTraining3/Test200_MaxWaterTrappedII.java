@@ -4,67 +4,63 @@ import java.util.*;
 
 public class Test200_MaxWaterTrappedII {
 	public int maxTrapped(int[][] matrix) {
-		int maxTrapped = 0;
-		boolean[][] generated = new boolean[matrix.length][matrix[0].length];
+		int maxTrapped = 0, m = matrix.length, n = matrix[0].length;
+		boolean[][] generated = new boolean[m][n];
 
-		Queue<Point> minHeap = new PriorityQueue<>(new Comparator<Point>() {
-			@Override
-			public int compare(Point o1, Point o2) {
-				return Integer.compare(o1.level, o2.level);
-			}
-		});
-
-		// generate the four sides elements of matrix to minHeap
-		for (int i = 0; i < matrix[0].length; i++) {
-			minHeap.offer(new Point(0, i, matrix[0][i]));
-			minHeap.offer(new Point(matrix.length - 1, i, matrix[matrix.length - 1][i]));
+		List<Cell> list = new ArrayList<>();
+		
+		// generate the four sides elements of matrix to a list then heapify the list
+		for (int i = 0; i < n; i++) {
+			list.add(new Cell(0, i, matrix[0][i]));
+			list.add(new Cell(m - 1, i, matrix[m - 1][i]));
 			generated[0][i] = true;
-			generated[matrix.length - 1][i] = true;
+			generated[m - 1][i] = true;
 		}
 
-		for (int i = 1; i < matrix.length - 1; i++) {
-			minHeap.offer(new Point(i, 0, matrix[i][0]));
-			minHeap.offer(new Point(i, matrix[0].length - 1, matrix[i][matrix[0].length - 1]));
+		for (int i = 1; i < m - 1; i++) {
+			list.add(new Cell(i, 0, matrix[i][0]));
+			list.add(new Cell(i, n - 1, matrix[i][n - 1]));
 			generated[i][0] = true;
-			generated[i][matrix[0].length - 1] = true;
+			generated[i][n - 1] = true;
 		}
 
+		// heapify w.r.t. list
+		PriorityQueue<Cell> minHeap = new PriorityQueue<>(list);
+
+		int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 		while (!minHeap.isEmpty()) {
-			Point curr = minHeap.poll();
+			Cell curr = minHeap.poll();
 			// check each neighbors of the expand node
-			maxTrapped += checkAndGenerate(curr.x, curr.y + 1, generated, matrix, minHeap, curr.level);
-			maxTrapped += checkAndGenerate(curr.x, curr.y - 1, generated, matrix, minHeap, curr.level);
-			maxTrapped += checkAndGenerate(curr.x + 1, curr.y, generated, matrix, minHeap, curr.level);
-			maxTrapped += checkAndGenerate(curr.x - 1, curr.y, generated, matrix, minHeap, curr.level);
+			for (int[] dir : dirs) {
+				int x = curr.x + dir[0];
+				int y = curr.y + dir[1];
+				if (x >= 0 && x < m && y >= 0 && y < n && !generated[x][y]) {
+					if (curr.level > matrix[x][y]) {
+						maxTrapped += curr.level - matrix[x][y];
+					}
+					generated[x][y] = true;
+					minHeap.offer(new Cell(x, y, Math.max(curr.level, matrix[x][y])));
+				}
+			}
 		}
 		return maxTrapped;
 	}
 
-	private int checkAndGenerate(int x, int y, boolean[][] generated, int[][] matrix, Queue<Point> minHeap, int currLevel) {
-		if (x >= 0 && x < generated.length && y >= 0 && y < generated[0].length && !generated[x][y]) {
-			generated[x][y] = true;
-			if (currLevel < matrix[x][y]) {
-				minHeap.offer(new Point(x, y, matrix[x][y]));
-				return 0;
-			} else {
-				minHeap.offer(new Point(x, y, currLevel));
-				return currLevel - matrix[x][y];
-			}
-		}
-		return 0;
-	}
-
-	private static class Point{
+	private static class Cell implements Comparable<Cell> {
 		int x;
 		int y;
 		int level;
 
-		public Point(int x, int y, int level) {
+		public Cell(int x, int y, int level) {
 			this.x = x;
 			this.y = y;
 			this.level = level;
 		}
 
+		@Override
+		public int compareTo(Cell o) {
+			return Integer.compare(this.level, o.level);
+		}
 	}
 
 	public static void main(String[] args) {
