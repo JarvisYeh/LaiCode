@@ -4,49 +4,51 @@ import java.util.*;
 
 public class Test662_WordLadderII {
 	public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
-		HashMap<String, Integer> wordIndex = new HashMap<String, Integer>();
-		// O(n)
-		for (int i = 0; i < wordList.size(); i++) {
-			wordIndex.put(wordList.get(i), i);
-		}
+		HashSet<String> dict = new HashSet<>(wordList);
 
 		// BFS-1
-
 		// predecessor stores <node, list of one step previous node>
 		// the nodes should be candidates for the shortest path
 		HashMap<String, List<String>> predecessors = new HashMap<>();
-		predecessors.put(beginWord, new ArrayList<>());
-
-		Queue<String> queue = new ArrayDeque<>();
-		queue.offer(beginWord);
-
 		HashMap<String, Integer> stepMaps = new HashMap<>();
+		Queue<String> queue = new ArrayDeque<>();
+
+		predecessors.put(beginWord, new ArrayList<>());
+		queue.offer(beginWord);
 		stepMaps.put(beginWord, 1);
 
 		while (!queue.isEmpty()) {
 			String currWord = queue.poll();
+			char[] arr = currWord.toCharArray();
 			int currStep = stepMaps.get(currWord);
-			// find all neighbors that are in the provided dictionary
-			List<String> neighbors = getNeighbors(currWord, wordIndex);
-			for (String nei : neighbors) {
-				if (!stepMaps.containsKey(nei)) {
-					stepMaps.put(nei, currStep + 1);
-					queue.offer(nei);
 
-					// if it is the first generated node
-					// create the predecessor list and add current into that list
-					List<String> predecessorsList = new ArrayList<>();
-					predecessorsList.add(currWord);
-					predecessors.put(nei, predecessorsList);
-				} else {
-					// if it is generated before
-					// check its step, if current step + 1 is equal to the generated node step
-					// meaning curr -> nei also could be a candidate for the shortest path
-					if (stepMaps.get(nei) == currStep + 1) {
-						predecessors.get(nei).add(currWord);
+			// modify i-th letter from 'a' to 'z'
+			for (int i = 0; i < arr.length; i++) {
+				char tmp = arr[i];
+				for (char c = 'a'; c <= 'z'; c++) {
+					if (c == tmp) continue;
+					// modify letter and check if new word is in dict
+					arr[i] = c;
+					String nei = new String(arr);
+					if (!dict.contains(nei)) continue;
+					// if it's in dict, check if it's generated before
+					if (!stepMaps.containsKey(nei)) {	// not generated before
+						// update stepMap, predecessorsMap
+						List<String> pre = new ArrayList<>();
+						pre.add(currWord);
+						stepMaps.put(nei, currStep + 1);
+						predecessors.put(nei, pre);
+						// offer to queue
+						queue.offer(nei);
+					} else {                            // generated before
+						// just see if currStep + 1 is equal to the minimal steps in stepMap
+						if (stepMaps.get(nei) == currStep + 1) {
+							predecessors.get(nei).add(currWord);
+						}
+						// no need to generate again
 					}
 				}
-
+				arr[i] = tmp;
 			}
 		}
 
@@ -80,29 +82,54 @@ public class Test662_WordLadderII {
 	}
 
 
-	// O(word.length*25)
-	private List<String> getNeighbors(String currWord, HashMap<String, Integer> wordIndex) {
-		List<String> neis = new ArrayList<>();
-		StringBuilder wordBuilder = new StringBuilder(currWord);
+	// method 2:
+	// use only BFS
+	// every time going one word after ward, copy all preceding transformation list from previous word
+	public List<List<String>> findLaddersII(String beginWord, String endWord, List<String> wordList) {
+		HashMap<String, List<List<String>>> pathsMap = new HashMap<>();
+		Queue<String> q = new ArrayDeque<>();
+		HashSet<String> dict = new HashSet<>(wordList);
 
-		// O(word.length)
-		// iterate through each index position of the original word
-		for (int i = 0; i < wordBuilder.length(); i++) {
-			char oriLetter = wordBuilder.charAt(i);
-			// O(25)
-			// change that position letter to new letter, which range from 'a' to 'z'
-			for (char c = 'a'; c <= 'z'; c++) {
-				if (c == oriLetter) {
-					continue;
+		q.offer(beginWord);
+		// start_w, {start_w}
+		List<List<String>> startList = new ArrayList<>();
+		startList.add(new ArrayList<>(Arrays.asList(beginWord)));
+		pathsMap.put(beginWord, startList);
+		while (!q.isEmpty()) {
+			String curr = q.poll();
+			List<List<String>> prePaths = pathsMap.get(curr);
+			char[] arr = curr.toCharArray();
+			for (int i = 0; i < curr.length(); i++) {
+				char tmp = arr[i];
+				for (char c = 'a'; c <= 'z'; c++) {
+					if (c == tmp) continue;
+					arr[i] = c;
+					String nei = new String(arr);
+					if (!dict.contains(nei)) continue;
+					if (!pathsMap.containsKey(nei)) {   // never generated before
+						// add itself to all prepaths
+						List<List<String>> neiPaths = new ArrayList<>();
+						for (List<String> prePath : prePaths) {
+							neiPaths.add(new ArrayList<>(prePath));
+							neiPaths.get(neiPaths.size() - 1).add(nei);
+						}
+						// update queue and map
+						pathsMap.put(nei, neiPaths);
+						q.offer(nei);
+					} else {                            // generated before
+						List<List<String>> neiPaths = pathsMap.get(nei);
+						if (prePaths.get(0).size() + 1 == neiPaths.get(0).size()) {
+							for (List<String> prePath : prePaths) {
+								neiPaths.add(new ArrayList<>(prePath));
+								neiPaths.get(neiPaths.size() - 1).add(nei);
+							}
+						}
+					}
 				}
-				wordBuilder.setCharAt(i, c);
-				if (wordIndex.containsKey(wordBuilder.toString())) {
-					neis.add(wordBuilder.toString());
-				}
-				wordBuilder.setCharAt(i, oriLetter);
+				arr[i] = tmp;
 			}
 		}
-		return neis;
+		return pathsMap.getOrDefault(endWord, new ArrayList<>());
 	}
 
 	public static void main(String[] args) {

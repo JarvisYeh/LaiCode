@@ -10,12 +10,15 @@ public class Test195_PlaceToPutTheChairI {
 		int M = gym.length;
 		int N = gym[0].length;
 		int[][] cost = new int[M][N];	// matrix to record the sum of cost from [i, j] to all Equipment
+		// global generated matrix, ensure the 'C' surround by 'O' will not update result even though cost = 0
+		boolean[][] generatedInAllBFS = new boolean[M][N];
+
 		// 对于每个Equipment，做一次BFS
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
 				// for each Equipment
 				if (gym[i][j] == EQUIP) {
-					if (!addCost(gym, cost, i, j)) {
+					if (!addCost(gym, cost, i, j, generatedInAllBFS)) {
 						return Arrays.asList(-1, -1);
 					}
 				}
@@ -23,21 +26,22 @@ public class Test195_PlaceToPutTheChairI {
 		}
 
 		// 找到sumOfCost最小的点
-		List<Integer> res = null;
+		int min = Integer.MAX_VALUE;
+		int x = -1, y = -1;
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
-				// for each Equipment
-				if (gym[i][j] != EQUIP && gym[i][j] != OB) {
-					if (res == null) {
-						res = Arrays.asList(i, j);
-					} else if (cost[i][j] < cost[res.get(0)][res.get(1)]) {
-						res.set(0, i);
-						res.set(1, j);
+				// for each place to put chair
+				// and check if it's being generated in BFS
+				if (gym[i][j] != EQUIP && gym[i][j] != OB && generatedInAllBFS[i][j]) {
+					if (cost[i][j] < min) {
+						min = cost[i][j];
+						x = i;
+						y = j;
 					}
 				}
 			}
 		}
-		return res == null ? Arrays.asList(-1, -1) : res;
+		return Arrays.asList(x, y);
 	}
 
 	/**
@@ -48,16 +52,13 @@ public class Test195_PlaceToPutTheChairI {
 	 * 该函数调用一次意味着
 	 * 	在cost矩阵中的所有'E'和'C'位置上
 	 * 	加入从E[i, j]到这些位置的Dmin
-	 * @param gym
-	 * @param cost
-	 * @param i
-	 * @param j
-	 * @return
 	 */
-	private boolean addCost(char[][] gym, int[][] cost, int i, int j) {
+	private boolean addCost(char[][] gym, int[][] cost, int i, int j, boolean[][] generatedInAllBFS) {
 		// initialization
 		int currCost = 1; // 记录下一圈cost
 		boolean[][] generated = new boolean[gym.length][gym[0].length]; // 记录已经被generate过的cell
+		generated[0][0] = true;
+		generatedInAllBFS[0][0] = true;
 		Queue<Pair> queue = new ArrayDeque<>(); // 记录当前圈的所有cell
 		queue.offer(new Pair(i, j));
 
@@ -73,10 +74,12 @@ public class Test195_PlaceToPutTheChairI {
 				List<Pair> neighbors = getNei(gym, curr);
 				for (Pair nei : neighbors) {
 					if (!generated[nei.x][nei.y]) {
-						// 对于当前的E来说，D(E, [x, y]) = currCost
+						// 对于Ei来说，D(Ei, [x, y]) = currCost
+						// 加入D([x, y], sum(Ei))
 						cost[nei.x][nei.y] += currCost;
 						queue.offer(nei);
 						generated[nei.x][nei.y] = true;
+						generatedInAllBFS[nei.x][nei.y] = true;
 					}
 				}
 			}
@@ -88,7 +91,8 @@ public class Test195_PlaceToPutTheChairI {
 		// 如果有则说明障碍物分隔了Equipments，则该题目不可能有解
 		for (int x = 0; x < gym.length; x++) {
 			for (int y = 0; y < gym[0].length; y++) {
-				// 如果cell是E，但是却没有被generate过，则说明题目无解
+				// if there is a Ej that is not generated, means from start Ei can not reach that Ej
+				// no solution
 				if (gym[x][y] == EQUIP && !generated[x][y]) {
 					return false;
 				}
@@ -99,28 +103,17 @@ public class Test195_PlaceToPutTheChairI {
 
 	/**
 	 * return all valid neighbors from curr cell
-	 * @param gym
-	 * @param curr
-	 * @return
 	 */
 	private List<Pair> getNei(char[][] gym, Pair curr) {
 		List<Pair> neis = new ArrayList<>();
-		int M = gym.length;
-		int N = gym[0].length;
-		int x = curr.x, y = curr.y;
+		int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+		int m = gym.length;
+		int n = gym[0].length;
 
-		// 将没有越界并且不是障碍物的neighbors返回
-		if (x + 1 < M && gym[x + 1][y] != OB) {
-			neis.add(new Pair(x + 1, y));
-		}
-		if (x - 1 >= 0 && gym[x - 1][y] != OB) {
-			neis.add(new Pair(x - 1, y));
-		}
-		if (y + 1 < N && gym[x][y + 1] != OB) {
-			neis.add(new Pair(x, y + 1));
-		}
-		if (y - 1 >= 0 && gym[x][y - 1] != OB) {
-			neis.add(new Pair(x, y - 1));
+		for (int[] dir : dirs) {
+			int x = curr.x + dir[0], y = curr.y + dir[1];
+			// valid neighbor if in boundary and not obstacle
+			if (x >= 0 && x < m && y >= 0 && y < n && gym[x][y] != OB) neis.add(new Pair(x, y));
 		}
 		return neis;
 	}
@@ -132,5 +125,16 @@ public class Test195_PlaceToPutTheChairI {
 			this.x = x;
 			this.y = y;
 		}
+	}
+
+	public static void main(String[] args) {
+		Test195_PlaceToPutTheChairI t = new Test195_PlaceToPutTheChairI();
+		System.out.println(t.putChair(new char[][]{
+				{'O','C','O','C','C'},
+				{'O','O','O','C','E'},
+				{'O','O','C','C','C'},
+				{'C','C','C','C','C'},
+				{'C','C','C','C','C'}}).toString()
+		);
 	}
 }
