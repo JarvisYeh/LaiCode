@@ -97,6 +97,10 @@ public class Test_CutStringToPalindrome {
 			// left : [0, j]
 			// right : (j, i], size = i - j > 0
 			for (int j = 0; j < i; j++) {
+				//   j=1   i=5
+				// a a b c d,
+				// right (1, 5], is not a palindrome, need cut = 5 - 1 = 4
+				// minCut = Math.min(minCut, mc[j] + (isPal[j + 1][i] ? 1: i - j);
 				if (isPal[j + 1][i]) {
 					minCut = Math.min(mc[j] + 1, minCut);
 				}
@@ -108,7 +112,7 @@ public class Test_CutStringToPalindrome {
 
 	public static void main(String[] args) {
 		Test_CutStringToPalindrome test = new Test_CutStringToPalindrome();
-		System.out.println(test.minimalCutII("ababbbabbababa"));
+		System.out.println(test.minimalCutII("aabcdef"));
 	}
 
 }
