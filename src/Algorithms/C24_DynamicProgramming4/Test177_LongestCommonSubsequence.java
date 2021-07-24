@@ -1,4 +1,4 @@
-package Algorithms.C24_DP4;
+package Algorithms.C24_DynamicProgramming4;
 
 public class Test177_LongestCommonSubsequence {
 	public int longest(String source, String target) {

@@ -1,4 +1,4 @@
-package Algorithms.C24_DP4;
+package Algorithms.C24_DynamicProgramming4;
 
 public class LeetCode44_WildcardMatching {
 	public boolean isMatch(String s, String p) {

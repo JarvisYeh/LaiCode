@@ -1,4 +1,4 @@
-package Algorithms.C24_DP4;
+package Algorithms.C24_DynamicProgramming4;
 
 public class Test176_LongestCommonSubstring {
 	public String longestCommon(String source, String target) {

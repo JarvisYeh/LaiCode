@@ -1,4 +1,4 @@
-package Algorithms.C24_DP4;
+package Algorithms.C24_DynamicProgramming4;
 
 public class Test137_CuttingWoodI {
 	public int minCost(int[] cuts, int length) {

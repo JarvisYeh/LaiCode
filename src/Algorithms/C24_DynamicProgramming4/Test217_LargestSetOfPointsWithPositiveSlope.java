@@ -1,4 +1,4 @@
-package Algorithms.C24_DP4;
+package Algorithms.C24_DynamicProgramming4;
 
 import java.util.Arrays;
 import java.util.Comparator;
