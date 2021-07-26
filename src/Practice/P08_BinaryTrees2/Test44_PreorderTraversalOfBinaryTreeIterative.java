@@ -1,4 +1,4 @@
-package Practice.P8_BinaryTrees2;
+package Practice.P08_BinaryTrees2;
 
 import util.TreeNode;
 

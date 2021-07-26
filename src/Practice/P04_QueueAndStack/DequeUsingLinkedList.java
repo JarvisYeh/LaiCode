@@ -1,4 +1,4 @@
-package Practice.P4_QueueAndStack;
+package Practice.P04_QueueAndStack;
 
 public class DequeUsingLinkedList {
 	private ListNode head;

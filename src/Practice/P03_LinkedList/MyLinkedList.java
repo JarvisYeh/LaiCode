@@ -1,4 +1,4 @@
-package Practice.P3_LinkedList;
+package Practice.P03_LinkedList;
 
 import util.ListNode;
 
