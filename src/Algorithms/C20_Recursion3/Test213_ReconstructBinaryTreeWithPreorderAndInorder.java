@@ -22,12 +22,11 @@ public class Test213_ReconstructBinaryTreeWithPreorderAndInorder {
 		for (int i = 0; i < inOrder.length; i++) {
 			indexMap.put(inOrder[i], i);
 		}
-		return reconstruct(inOrder, 0, inOrder.length - 1, preOrder, 0, preOrder.length - 1, indexMap);
+		return reconstruct(indexMap, 0, inOrder.length - 1, preOrder, 0, preOrder.length - 1);
 	}
 
-	private TreeNode reconstruct(int[] inOrder, int inLeft, int inRight,
-								 int[] preOrder, int preLeft, int preRight,
-								 HashMap<Integer, Integer> indexMap) {
+	private TreeNode reconstruct(HashMap<Integer, Integer> indexMap, int inLeft, int inRight,
+								 int[] preOrder, int preLeft, int preRight) {
 		// base case
 		if (inLeft > inRight) {
 			return null;
@@ -39,12 +38,10 @@ public class Test213_ReconstructBinaryTreeWithPreorderAndInorder {
 		int leftSize = rootIndex - inLeft;
 
 		// recursive call
-		root.left = reconstruct(inOrder, inLeft, inLeft + leftSize - 1,
-									preOrder, preLeft + 1, preLeft + leftSize,
-									indexMap);
-		root.right = reconstruct(inOrder, inLeft + leftSize + 1, inRight,
-									preOrder, preLeft + leftSize + 1, preRight,
-									indexMap);
+		root.left = reconstruct(indexMap, inLeft, inLeft + leftSize - 1,
+									preOrder, preLeft + 1, preLeft + leftSize);
+		root.right = reconstruct(indexMap, inLeft + leftSize + 1, inRight,
+									preOrder, preLeft + leftSize + 1, preRight);
 		return root;
 	}
 }
