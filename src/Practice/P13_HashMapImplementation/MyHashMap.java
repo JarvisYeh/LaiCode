@@ -55,11 +55,11 @@ public class MyHashMap<K, V> {
 		}
 
 		// if not found, add the new Entry to the head of linked list
-		Entry<K, V> newHead = new Entry(key, value);
+		Entry<K, V> newHead = new Entry<>(key, value);
 		newHead.next = array[index];
 		array[index] = newHead;
 		size++;
-		checkAndRehash(size);
+		checkAndRehash();
 		return null;
 	}
 
@@ -121,7 +121,7 @@ public class MyHashMap<K, V> {
 	 * check if hashmap need rehash
 	 * if needed, double the capacity and rehash
 	 **/
-	private void checkAndRehash(int size) {
+	private void checkAndRehash() {
 		if (size < (int)(capacity * loadFactor)) {
 			return;
 		}
@@ -151,6 +151,7 @@ public class MyHashMap<K, V> {
 	}
 
 	public static class Entry<K, V> {
+		// key can not be changed
 		private final K key;
 		V value;
 		Entry<K, V> next;
@@ -166,6 +167,10 @@ public class MyHashMap<K, V> {
 
 		public V getValue() {
 			return value;
+		}
+
+		public void setValue(V val) {
+			this.value = val;
 		}
 	}
 }
