@@ -69,6 +69,7 @@ public class Test431_WordSearchII {
 		}
 		TrieNode root = trie.root;
 
+		// step 2: for each start positions, dfs with Trie
 		int m = board.length, n = board[0].length;
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
