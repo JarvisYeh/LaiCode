@@ -26,10 +26,9 @@ public enum ScoreComparator implements Comparator<Student> {
 
 // with lambda expression
 enum LambdaScoreComparator implements Comparator<Student> {
-	MathComparator (
-			(Student s1, Student s2) -> {
-				return Integer.compare(s1.math, s2.math);
-			}),
+	// lambda 1
+	MathComparator ((Student s1, Student s2) -> Integer.compare(s1.math, s2.math)),
+	// lambda 2
 	EnglishComparator(
 			(Student s1, Student s2) -> {
 				return Integer.compare(s1.english, s2.english);

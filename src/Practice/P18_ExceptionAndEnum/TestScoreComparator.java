@@ -6,7 +6,9 @@ public class TestScoreComparator {
 	public static void main(String[] args) {
 		Student s1 = new Student("abc", 100, 2, 3);
 		Student s2 = new Student("cde", 2, 3, 4);
-		Comparator<Student> mathComp = ScoreComparator.valueOf("MathComparator");
+		// method 1:
+		Comparator<Student> mathComp = ScoreComparator.MathComparator;
+		// method 2:
 		Comparator<Student> engComp = ScoreComparator.valueOf("EnglishComparator");
 		Comparator<Student> cnComp = LambdaScoreComparator.valueOf("ChineseComparator");
 		System.out.println(mathComp.compare(s1, s2));
