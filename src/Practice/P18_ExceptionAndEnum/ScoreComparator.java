@@ -24,7 +24,7 @@ public enum ScoreComparator implements Comparator<Student> {
 	};
 }
 
-// with lambda expression
+// with lambda expression together with bi-function
 enum LambdaScoreComparator implements Comparator<Student> {
 	// lambda 1
 	MathComparator ((Student s1, Student s2) -> Integer.compare(s1.math, s2.math)),
