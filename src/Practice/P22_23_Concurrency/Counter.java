@@ -1,4 +1,4 @@
-package Practice.P22_Concurrency;
+package Practice.P22_23_Concurrency;
 
 public class Counter {
 	private static int value = 1;

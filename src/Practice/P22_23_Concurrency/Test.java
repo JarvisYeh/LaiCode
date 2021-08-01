@@ -1,4 +1,4 @@
-package Practice.P22_Concurrency;
+package Practice.P22_23_Concurrency;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
