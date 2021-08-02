@@ -14,7 +14,8 @@ public class Test19_kClosestInSortedArray {
             return null;
         }
 
-        // first find two numbers {left, target, right}, which is closest to the target
+        // first find two numbers {left, target, right}
+        // which are two candidates of the closest one to target
         int left = 0, right = arr.length;
         while (right - left > 1) {
             int mid = left + (right - left)/2;
