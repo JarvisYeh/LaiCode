@@ -25,7 +25,7 @@ public class Test19_kClosestInSortedArray {
             }
         }
 
-        // post processing
+        // post-processing
         int[] res = new int[k];
         for (int i=0; i<k; i++) {
             if (right > arr.length - 1) {
