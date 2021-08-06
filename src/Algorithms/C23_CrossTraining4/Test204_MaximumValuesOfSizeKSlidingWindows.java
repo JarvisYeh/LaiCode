@@ -153,6 +153,37 @@ public class Test204_MaximumValuesOfSizeKSlidingWindows {
 		}
 	}
 
+
+	// method 5: deque store index
+	// no need to use custom class
+	public int[] maxSlidingWindow(int[] nums, int k) {
+		int n = nums.length;
+		int[] res = new int[n - k + 1];
+
+
+		Deque<Integer> deque = new ArrayDeque<>();
+		for (int i = 0; i < n; i++) {
+			// if first index out of window range, pop it out
+			// first index of current window: i - k + 1
+			while (!deque.isEmpty() && deque.peekFirst() < i - k + 1) {
+				deque.pollFirst();
+			}
+
+			// pop until nums[de.last] > nums[i]
+			while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
+				deque.pollLast();
+			}
+			deque.offerLast(i);
+
+			// update res array
+			// i is the last index of window
+			if (i - k + 1 >= 0) {
+				res[i - k + 1] = nums[deque.peekFirst()];
+			}
+		}
+		return res;
+	}
+
 	public static void main(String[] args) {
 		Test204_MaximumValuesOfSizeKSlidingWindows t = new Test204_MaximumValuesOfSizeKSlidingWindows();
 		t.maxWindowsIII(new int[]{2,4}, 2);
