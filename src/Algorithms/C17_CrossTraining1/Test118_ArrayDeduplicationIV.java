@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class Test118_ArrayDeduplicationIV {
 	// unsorted array, repeatedly removal
-	// 对unsorted array也适用
 	public int[] dedup(int[] array) {
 		int slow = 0;
 		int fast = 0;
