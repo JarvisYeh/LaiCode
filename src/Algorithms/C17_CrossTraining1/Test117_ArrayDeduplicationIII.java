@@ -3,7 +3,7 @@ package Algorithms.C17_CrossTraining1;
 import java.util.Arrays;
 
 public class Test117_ArrayDeduplicationIII {
-	// sorted array每个保留一个
+	// sorted array去除所有重复字母
 	// 因为是sorted本身就不可能repeatedly removal
 	// 1233 => 12
 	public int[] deDup(int[] array) {
