@@ -1,8 +1,11 @@
 package Algorithms.C20_Recursion3;
 
+import com.sun.source.tree.Tree;
 import util.TreeNode;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 
 public class Test211_ReconstructBinarySearchTreeWithPostorderTraversal {
@@ -65,7 +68,7 @@ public class Test211_ReconstructBinarySearchTreeWithPostorderTraversal {
 
 	private TreeNode reconstructII(int[] post, int[] index, int min) {
 		// all elements in post order is being traversed
-		// or the value if less than the supposed min, which means it should not belong to the right subtree
+		// or the value is less than the supposed min, which means it should not belong to the right subtree
 		if (index[0] < 0 || post[index[0]] < min) {
 			return null;
 		}
@@ -77,5 +80,43 @@ public class Test211_ReconstructBinarySearchTreeWithPostorderTraversal {
 		return root;
 	}
 
+	/** Method 3:
+	 * simulate method 2 using stack
+	 * improve space complexity to O(1)
+	 * TC: O(n)
+	 * SC: O(1)
+	 * post = [4 11 10 9]
+	 * 9
+	 *  \
+	 *  10
+	 *    \
+	 *    11
+	 * when 4 comes, need to determined whether it's 11/10/9's left child
+	 */
+	public TreeNode reconstructIII(int[] post) {
+		if (post == null || post.length == 0) return null;
 
+		// stack stores those left or right child is not determined yet
+		Deque<TreeNode> stack = new ArrayDeque<>();
+		TreeNode root = new TreeNode(post[post.length - 1]);
+		stack.offerFirst(root);
+		// start from second last element, since last one is already pushed into stack
+		for (int i = post.length - 2; i >= 0; i--) {
+			TreeNode curr = new TreeNode(post[i]);
+			if (curr.key > stack.peekFirst().key) {
+				stack.peekFirst().right = curr;
+			} else {
+				TreeNode parent = null;
+				// pop until curr.key > stack.top.key
+				// the previous pop one is the last node with key > curr.key
+				// last.left = curr
+				while (!stack.isEmpty() && curr.key < stack.peekFirst().key) {
+					parent = stack.pollFirst();
+				}
+				parent.left = curr;
+			}
+			stack.offerFirst(curr);
+		}
+		return root;
+	}
 }
