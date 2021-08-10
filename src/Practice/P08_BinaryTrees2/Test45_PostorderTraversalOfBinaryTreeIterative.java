@@ -67,7 +67,7 @@ public class Test45_PostorderTraversalOfBinaryTreeIterative {
 				}
 
 			// if prev is the left child of curr
-			// meaning the left sub tree is already traversed
+			// meaning the left subtree is already traversed
 			} else if (prev == curr.left) {
 				// if curr has right child to be routed, route it first
 				if (curr.right != null) {
@@ -84,6 +84,40 @@ public class Test45_PostorderTraversalOfBinaryTreeIterative {
 			prev = curr;
 		}
 		return result;
+	}
+
+	/**
+	 * Method 3: concise iteration method
+	 */
+	public List<Integer> postOrderIII(TreeNode root) {
+		List<Integer> res = new ArrayList<>();
+		Deque<TreeNode> s = new ArrayDeque<>();
+		TreeNode prev = null, curr = root;
+		while (curr != null || !s.isEmpty()) {
+			// push all left nodes first
+			// since first traverse left nodes
+			while (curr != null) {
+				s.offerFirst(curr);
+				curr = curr.left;
+			}
+
+			// the stack top is the node without left child || left subtree are traversed
+			// but still not sure whether its right subtree are traversed
+			curr = s.peekFirst();
+			// if that curr node doesn't have right child
+			// or it's previous traversed node is its right child
+			// meaning all its left and right nodes are traversed
+			// now traverse this node
+			if (curr.right == null || prev == curr.right) {
+				s.pollFirst();
+				res.add(curr.key);
+				prev = curr;
+				curr = null;
+			} else {
+				curr = curr.right;
+			}
+		}
+		return res;
 	}
 
 
