@@ -3,6 +3,7 @@ package Algorithms.Others;
 import util.TreeNode;
 
 public class Test347_SecondLargestInBinarySearchTree {
+	// transfer the find second-largest problems into find the largest problem
 	// TC: O(height)
 	// SC: O(height)
 	public int secondLargest(TreeNode root) {
