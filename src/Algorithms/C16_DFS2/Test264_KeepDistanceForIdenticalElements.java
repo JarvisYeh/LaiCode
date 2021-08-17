@@ -16,6 +16,11 @@ public class Test264_KeepDistanceForIdenticalElements {
 	 * 		arr[i - num - 1] == num
 	 * 可以进入下一层recursion（即决定下一个index的数字）
 	 * 不可以则判断当前层下一个元素
+	 * recursion tree has O(2k) levels
+	 * last level: O(n!) nodes
+	 * each node has for loop at most O(n = 2k)
+	 * TC: O((2k)*(2k)!)
+	 * SC: O(2k)
 	 */
 	public int[] keepDistanceI(int k) {
 		int[] curr = new int[2 * k];
@@ -25,7 +30,7 @@ public class Test264_KeepDistanceForIdenticalElements {
 
 		// used[i] means number i is determined its position before
 		// number range from [1, k]
-		boolean[] used = new boolean[2*k  + 1];
+		boolean[] used = new boolean[k + 1];
 		return DFSI(0, used, curr) ? curr : null;
 	}
 
@@ -66,9 +71,13 @@ public class Test264_KeepDistanceForIdenticalElements {
 
 	/**
 	 * Method 2: determine index by index
-	 * not used swap to determine each positions
+	 * not use swap to determine each positions
 	 * but loop from index = [1, curr.length) to check all index
 	 * use a int[] to count the times that a specific num is determined in current array
+	 * recursion tree O(2k) levels, each node has k branches
+	 * each node has for loop O(k)
+	 * TC: O(k*[(k)^(2k)])
+	 * SC: O(2k)
 	 */
 	public int[] keepDistanceII(int k) {
 		// countUsed[i]: how many number i is determined position in current array
@@ -99,8 +108,13 @@ public class Test264_KeepDistanceForIdenticalElements {
 	}
 
 	/**
-	 * Method3: determine pair by pair
+	 * Method3: determine pair by pair (number by number)
 	 * check pairs from [1, k]
+	 * recursion tree k levels
+	 * each node has O(2*k) branches
+	 * each node has O(2*k) for loop
+	 * TC: (2k*[(2k)^k])
+	 * SC: O(k)
 	 */
 	public int[] keepDistanceIII(int k) {
 		int[] curr = new int[2 * k];
@@ -127,6 +141,6 @@ public class Test264_KeepDistanceForIdenticalElements {
 
 	public static void main(String[] args) {
 		Test264_KeepDistanceForIdenticalElements test = new Test264_KeepDistanceForIdenticalElements();
-		System.out.println(Arrays.toString(test.keepDistanceII(3)));
+		System.out.println(Arrays.toString(test.keepDistanceI(3)));
 	}
 }

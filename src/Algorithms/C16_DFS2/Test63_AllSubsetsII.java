@@ -2,6 +2,7 @@ package Algorithms.C16_DFS2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Test63_AllSubsetsII {
@@ -80,6 +81,45 @@ public class Test63_AllSubsetsII {
 
 		// now i = input.length, namely no add anything
 		dfs(input.length, sb, input, res);
+	}
+
+
+	// Method 3:
+	// assume k unique letters, each letters at most n
+	// k levels, each level represents a unique character
+	// each node has n + 1 branches, meaning choose 0 ~ n of this letter
+	public List<String> subSetsIII(String set) {
+		// corner case
+		if (set == null) return new ArrayList<>();
+		// generate frequency map for each character
+		HashMap<Character, Integer> freqMap = new HashMap<>();
+		for (int i = 0; i < set.length(); i++) {
+			Integer count = freqMap.getOrDefault(set.charAt(i), 0);
+			freqMap.put(set.charAt(i), count + 1);
+		}
+		List<String> res = new ArrayList<>();
+		helper(0, new ArrayList<Character>(freqMap.keySet()), freqMap, new StringBuilder(), res);
+		return res;
+	}
+
+	private void helper(int idx, List<Character> keyList, HashMap<Character, Integer> freqMap,
+						StringBuilder sb, List<String> res) {
+		// base case
+		if (idx == keyList.size()) {
+			res.add(new String(sb));
+			return;
+		}
+
+		int len = sb.length();
+		// choose 0 key.get(idx)
+		helper(idx + 1, keyList, freqMap, sb, res);
+		// choose 1 - n key.get(idx)
+		for (int i = 0; i < freqMap.get(keyList.get(idx)); i++) {
+			sb.append(keyList.get(idx));
+			helper(idx + 1, keyList, freqMap, sb, res);
+		}
+		// restore sb
+		sb.delete(len, sb.length());
 	}
 
 	public static void main(String[] args) {

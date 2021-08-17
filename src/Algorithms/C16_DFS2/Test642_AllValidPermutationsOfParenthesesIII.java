@@ -22,7 +22,9 @@ public class Test642_AllValidPermutationsOfParenthesesIII {
 		return res;
 	}
 
-	private void DFS(int[] left, int[] right, int l, int m, int n, Deque<Character> stack, StringBuilder sb, List<String> res) {
+	private void DFS(int[] left, int[] right,
+					 int l, int m, int n,
+					 Deque<Character> stack, StringBuilder sb, List<String> res) {
 		// base case
 		if (left[0] + right[0] == 2 * l && left[1] + right[1] == 2 * m && left[2] + right[2] == 2 * n) {
 			res.add(new String(sb));
@@ -93,5 +95,10 @@ public class Test642_AllValidPermutationsOfParenthesesIII {
 			right[2]--;
 			stack.offerFirst('{');
 		}
+	}
+
+	public static void main(String[] args) {
+		Test642_AllValidPermutationsOfParenthesesIII t = new Test642_AllValidPermutationsOfParenthesesIII();
+		System.out.println(t.validParenthesesIII(2, 1, 0));
 	}
 }

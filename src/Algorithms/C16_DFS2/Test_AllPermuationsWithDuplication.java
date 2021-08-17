@@ -3,7 +3,10 @@ package Algorithms.C16_DFS2;
 import java.util.*;
 
 public class Test_AllPermuationsWithDuplication {
-	public List<String> allPermutations(String set) {
+	// method 1: use swap and hashset
+	// if s[i] has swapped to idx before
+	// not swap same character to idx again
+	public List<String> allPermutationsI(String set) {
 		List<String> res = new ArrayList<>();
 		if (set == null) {
 			return res;
@@ -39,8 +42,40 @@ public class Test_AllPermuationsWithDuplication {
 		arr[j] = tmp;
 	}
 
+	// method 2: use boolean array
+	// need to sort first, skip duplicate element on the run
+	public List<String> allPermutationsII(String set) {
+		List<String> res = new ArrayList<>();
+		if (set == null) {
+			return res;
+		}
+		char[] input = set.toCharArray();
+		Arrays.sort(input);
+		helper(new boolean[set.length()], input, new StringBuilder(), res);
+		return res;
+	}
+
+	private void helper(boolean[] used, char[] arr, StringBuilder sb, List<String> res) {
+		if (sb.length() == arr.length) {
+			res.add(new String(sb));
+			return;
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			if (used[i]) continue;	// skip used index
+			// if it's duplicate element, and previous same element is not use, can not use this element
+			if (i > 0 && arr[i - 1] == arr[i] && !used[i - 1]) continue;
+			used[i] = true;
+			sb.append(arr[i]);
+			helper(used, arr, sb, res);
+			sb.deleteCharAt(sb.length() - 1);
+			used[i] = false;
+		}
+	}
+
+
 	public static void main(String[] args) {
 		Test_AllPermuationsWithDuplication test = new Test_AllPermuationsWithDuplication();
-		System.out.println(test.allPermutations("abb"));
+		System.out.println(test.allPermutationsII("abb"));
 	}
 }

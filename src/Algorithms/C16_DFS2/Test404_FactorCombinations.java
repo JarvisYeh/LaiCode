@@ -6,19 +6,13 @@ import java.util.List;
 public class Test404_FactorCombinations {
 	public List<List<Integer>> combinations(int target) {
 		// get all factors of target
-		List<Integer> factors = new ArrayList<>();
-		for (int i = 2; i < target; i++) {
-			if (target % i == 0) {
-				factors.add(i);
-			}
-		}
+		List<Integer> factors = getFactors(target);
 
 		List<List<Integer>> res = new ArrayList<>();
 		List<Integer> curr = new ArrayList<>();
 		if (factors.size() == 0) {
 			return res;
 		}
-
 		DFS(0, target, factors, curr, res);
 		return res;
 	}
@@ -46,6 +40,20 @@ public class Test404_FactorCombinations {
 		}
 		// 删除新加入的这些factor
 		curr.subList(size, curr.size()).clear();				//吐
+	}
+
+	private List<Integer> getFactors(int target) {
+		List<Integer> factors = new ArrayList<>();
+		for (int i = 2; i*i <= target; i++) {
+			if (target % i != 0) continue;
+			if (i*i == target) {
+				factors.add(i);
+			} else {
+				factors.add(i);
+				factors.add(target/i);
+			}
+		}
+		return factors;
 	}
 
 	public static void main(String[] args) {
