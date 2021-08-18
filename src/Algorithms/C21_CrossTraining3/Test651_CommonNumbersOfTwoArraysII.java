@@ -3,7 +3,7 @@ package Algorithms.C21_CrossTraining3;
 import java.util.*;
 
 public class Test651_CommonNumbersOfTwoArraysII {
-	// method 1:
+	// Method 1:
 	// use two hashset
 	// TS: O(n + m)
 	// SC: O(n + m)
@@ -32,7 +32,7 @@ public class Test651_CommonNumbersOfTwoArraysII {
 		return res;
 	}
 
-	// method 2:
+	// Method 2:
 	// sort first, then use pointers
 	// TC: O(nlogn + mlogm + m + n)
 	// SC: O(1)

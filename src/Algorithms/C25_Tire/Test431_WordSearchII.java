@@ -3,7 +3,7 @@ package Algorithms.C25_Tire;
 import java.util.*;
 
 public class Test431_WordSearchII {
-	// method 1: brute force
+	// Method 1: brute force
 	// TC: O(m*n*K*[4^L])
 	// SC: O(m*n + L)
 	public List<String> findWordsI(char[][] board, String[] words) {
@@ -57,7 +57,7 @@ public class Test431_WordSearchII {
 		return false;
 	}
 
-	// method 2: together with Trie
+	// Method 2: together with Trie
 	// TC: O(m*n*[4^L])
 	// SC: O(m*n + L)
 	public List<String> findWordsII(char[][] board, String[] words) {

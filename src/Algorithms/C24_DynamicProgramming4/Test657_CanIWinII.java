@@ -1,7 +1,7 @@
 package Algorithms.C24_DynamicProgramming4;
 
 public class Test657_CanIWinII {
-	// method 1: recursion
+	// Method 1: recursion
 	// TC: O(2^n)
 	// SC: O(n)
 	public int canWinI(int[] nums) {
@@ -32,7 +32,7 @@ public class Test657_CanIWinII {
 		}
 	}
 
-	// method 2: DP
+	// Method 2: DP
 	// TC: O(n^2)
 	// SC: O(n^2)
 	public int canWin(int[] nums) {

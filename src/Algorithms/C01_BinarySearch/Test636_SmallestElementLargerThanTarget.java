@@ -31,7 +31,7 @@ public class Test636_SmallestElementLargerThanTarget {
         }
     }
 
-    // method without post-processing
+    // Method without post-processing
     public int smallestLargerII(int[] arr, int target) {
         int left = 0, right = arr.length - 1;
         while (left <= right) {

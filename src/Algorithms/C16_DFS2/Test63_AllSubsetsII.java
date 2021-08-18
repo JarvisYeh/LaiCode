@@ -11,7 +11,7 @@ public class Test63_AllSubsetsII {
 	 * input string有重复元素
 	 **/
 
-	// method 1
+	// Method 1
 	// DFS
 	public List<String> subSetsI(String set) {
 		// corner case
@@ -51,7 +51,7 @@ public class Test63_AllSubsetsII {
 	}
 
 
-	// method 2
+	// Method 2
 	// DFS
 	public List<String> subSetsII(String set) {
 		if (set == null) return new ArrayList<>();

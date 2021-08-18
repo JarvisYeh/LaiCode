@@ -5,7 +5,7 @@ import util.TreeNode;
 // max sum of path from root to leaf
 
 public class Test639_MaxPathSumFromLeafToRoot {
-	// method 1: 从下往上传值
+	// Method 1: 从下往上传值
 	public int maxPathSumLeafToRootI(TreeNode root) {
 		if (root == null) {
 			return 0;
@@ -22,7 +22,7 @@ public class Test639_MaxPathSumFromLeafToRoot {
 		return Math.max(left, right) + root.key;
 	}
 
-	// method 2: 从上往下传值
+	// Method 2: 从上往下传值
 	public int maxPathSumLeafToRootII(TreeNode root) {
 		int prefixSum = 0;
 		int[] maxSum = new int[1];

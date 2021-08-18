@@ -32,7 +32,7 @@ public class Test15_FirstOccurence {
         }
     }
 
-    // method without post-processing
+    // Method without post-processing
     public int firstOccurII(int[] arr, int target) {
         int left = 0, right = arr.length - 1;
         while (left <= right) {

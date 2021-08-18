@@ -5,7 +5,7 @@ import util.GraphNode;
 import java.util.*;
 
 public class Test132_DeepCopyUndirectedGraph {
-	// method 1: BFS
+	// Method 1: BFS
 	public List<GraphNode> copyI(List<GraphNode> graph) {
 		if (graph == null || graph.size() == 0) {
 			new ArrayList<>();

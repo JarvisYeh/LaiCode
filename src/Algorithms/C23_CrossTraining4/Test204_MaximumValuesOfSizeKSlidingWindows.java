@@ -3,7 +3,7 @@ package Algorithms.C23_CrossTraining4;
 import java.util.*;
 
 public class Test204_MaximumValuesOfSizeKSlidingWindows {
-	// method 1: brute force
+	// Method 1: brute force
 	// for each sliding window, linear scan to find the max
 	// TC: O(n*k)
 	// SC: O(k) for queue
@@ -35,7 +35,7 @@ public class Test204_MaximumValuesOfSizeKSlidingWindows {
 	}
 
 
-	// method 2: use maxHeap
+	// Method 2: use maxHeap
 	// maxHeap stores <value, idx> pair in current sliding window
 	// idx is the index of value in array
 	// so that it's possible to remove specific position value in heap
@@ -72,7 +72,7 @@ public class Test204_MaximumValuesOfSizeKSlidingWindows {
 		return res;
 	}
 
-	// method 3: use maxHeap
+	// Method 3: use maxHeap
 	// everytime a new value come, store <value, idx> in maxHeap
 	// everytime peek maxHeap top
 	// if top Pair is in the range of current window, add to result
@@ -106,7 +106,7 @@ public class Test204_MaximumValuesOfSizeKSlidingWindows {
 		return res;
 	}
 
-	// method 4: use deque
+	// Method 4: use deque
 	// deque from left to right store some Pair<val, idx> in current window
 	// those elements violate the descending order will be discard
 	// new element come
@@ -154,7 +154,7 @@ public class Test204_MaximumValuesOfSizeKSlidingWindows {
 	}
 
 
-	// method 5: deque store index
+	// Method 5: deque store index
 	// no need to use custom class
 	public int[] maxSlidingWindow(int[] nums, int k) {
 		int n = nums.length;

@@ -3,7 +3,7 @@ package Algorithms.C16_DFS2;
 import java.util.*;
 
 public class Test_AllPermuationsWithDuplication {
-	// method 1: use swap and hashset
+	// Method 1: use swap and hashset
 	// if s[i] has swapped to idx before
 	// not swap same character to idx again
 	public List<String> allPermutationsI(String set) {
@@ -42,7 +42,7 @@ public class Test_AllPermuationsWithDuplication {
 		arr[j] = tmp;
 	}
 
-	// method 2: use boolean array
+	// Method 2: use boolean array
 	// need to sort first, skip duplicate element on the run
 	public List<String> allPermutationsII(String set) {
 		List<String> res = new ArrayList<>();

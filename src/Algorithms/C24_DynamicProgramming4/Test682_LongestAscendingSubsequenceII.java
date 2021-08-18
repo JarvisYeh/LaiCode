@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Test682_LongestAscendingSubsequenceII {
-	// method 1:
+	// Method 1:
 	// store the preceding element together with max length
 	// TC: O(n^2)
 	// SC: O(n)
@@ -53,7 +53,7 @@ public class Test682_LongestAscendingSubsequenceII {
 	}
 
 
-	// method 2:
+	// Method 2:
 	// check each j in [0, maxIdx) backward
 	// if DP[j] == DP[maxIdx] - 1 && array[j] < array[maxIdx], find the preceding element of maxIdx
 	// update maxIdx = j
@@ -95,7 +95,7 @@ public class Test682_LongestAscendingSubsequenceII {
 		return res;
 	}
 
-	// method 3:
+	// Method 3:
 	// use binary search to improve TC
 	// TC: O(nlogn)
 	// SC: O(n)

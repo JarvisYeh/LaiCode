@@ -51,7 +51,7 @@ public class Test19_kClosestInSortedArray {
         return res;
     }
 
-    // method 2: binary search + search in two sorted array
+    // Method 2: binary search + search in two sorted array
     // TC: O(log n + log k)
     // SC: O(1)
     public int[] kClosestII(int[] arr, int target, int k) {
@@ -118,7 +118,7 @@ public class Test19_kClosestInSortedArray {
         return res;
     }
 
-    // method 3:
+    // Method 3:
     // binary search + sliding window
     // TC: O(log n)
     // SC: O(1)

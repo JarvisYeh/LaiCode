@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Test133_MergeKSortedArray {
-	// method 1:
+	// Method 1:
 	// iteration reduction
 	// n is the size of each array, k is the amount of array
 	// TC: O(n + 2n + 3n + 4n + ... + kn) = O(k^n)
@@ -45,7 +45,7 @@ public class Test133_MergeKSortedArray {
 		return res;
 	}
 
-	// method 2:
+	// Method 2:
 	// binary reduction with iteration
 	// TC: O(kn*log k)
 	// SC: O(kn)
@@ -87,7 +87,7 @@ public class Test133_MergeKSortedArray {
 		return arrayOfArrays[0];
 	}
 
-	// method 3:
+	// Method 3:
 	// binary reduction with recursion
 	// similar to mergeSort
 	// TC: O(kn*log k)
@@ -119,7 +119,7 @@ public class Test133_MergeKSortedArray {
 		return res;
 	}
 
-	// method 4:
+	// Method 4:
 	// use minHeap to store k pointers
 	// TC: O(knlog k)
 	// SC: O(k)

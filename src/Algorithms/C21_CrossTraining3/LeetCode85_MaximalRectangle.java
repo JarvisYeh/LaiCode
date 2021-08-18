@@ -1,8 +1,8 @@
 package Algorithms.C21_CrossTraining3;
 
 public class LeetCode85_MaximalRectangle {
-	// method 1:
-	// use largest consecutive 1s as sub problem
+	// Method 1:
+	// use the largest consecutive 1s as sub problem
 	// generate look up and loop left matrix
 	// iterate for each bottom right corner	O(mn)
 	// 	iterate for each possible height	O(m) at most
@@ -56,7 +56,7 @@ public class LeetCode85_MaximalRectangle {
 
 	}
 
-	// method 2:
+	// Method 2:
 	// use max area in histogram as sub problem
 	// TC: O(m4n)
 	// SC: O(n)

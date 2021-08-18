@@ -1,7 +1,7 @@
 package Algorithms.Others;
 
 public class Test304_ValidPostorderTraversalOfBinarySearchTree {
-	// method 1
+	// Method 1
 	// TC: O(h*n)
 	// SC: O(h)
 	public boolean validPostOrderI(int[] post) {
@@ -30,7 +30,7 @@ public class Test304_ValidPostorderTraversalOfBinarySearchTree {
 		return checkRange(post, l, startOfRight - 1) && checkRange(post, startOfRight, r - 1);
 	}
 
-	// method 2
+	// Method 2
 	// TC: O(n)
 	// SC: O(h)
 	public boolean validPostOrderII(int[] post) {

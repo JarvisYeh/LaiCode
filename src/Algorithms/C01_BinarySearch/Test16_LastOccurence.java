@@ -28,7 +28,7 @@ public class Test16_LastOccurence {
         }
     }
 
-    // method without post-processing
+    // Method without post-processing
     public int lastOccurII(int[] arr, int target) {
         int left = 0, right = arr.length - 1;
         while (left <= right) {

@@ -6,7 +6,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class Test_DetermineCousin {
-	// method 1: recursion
+	// Method 1: recursion
 	// cousin node are nodes in same level but with different parents
 	public boolean isCousinI(TreeNode root, TreeNode a, TreeNode b) {
 		if (root == null || a == null || b == null) {
@@ -57,7 +57,7 @@ public class Test_DetermineCousin {
 		return left || right;
 	}
 
-	// method 2: recursion with one time traversal
+	// Method 2: recursion with one time traversal
 	// TC: O(2^n)
 	public boolean isCousinII(TreeNode root, TreeNode a, TreeNode b) {
 		boolean[] res = {false};
@@ -92,7 +92,7 @@ public class Test_DetermineCousin {
 	}
 
 
-	// method 3: BFS
+	// Method 3: BFS
 	// TC: O(2^n)
 	// SC: O(2^n), last level nodes
 	public boolean isCousinIII(TreeNode root, TreeNode a, TreeNode b) {

@@ -82,7 +82,7 @@ public class Test662_WordLadderII {
 	}
 
 
-	// method 2:
+	// Method 2:
 	// use only BFS
 	// every time going one word after ward, copy all preceding transformation list from previous word
 	public List<List<String>> findLaddersII(String beginWord, String endWord, List<String> wordList) {
