@@ -1,4 +1,4 @@
-package Algorithms.Others;
+package Algorithms.Others.BST;
 
 import util.TreeNode;
 

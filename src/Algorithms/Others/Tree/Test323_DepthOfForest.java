@@ -1,4 +1,4 @@
-package Algorithms.Others;
+package Algorithms.Others.Tree;
 
 public class Test323_DepthOfForest {
 	public int depth(int[] forest) {

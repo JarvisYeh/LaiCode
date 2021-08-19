@@ -1,4 +1,4 @@
-package Algorithms.Others;
+package Algorithms.Others.BST;
 
 public class Test304_ValidPostorderTraversalOfBinarySearchTree {
 	// Method 1
