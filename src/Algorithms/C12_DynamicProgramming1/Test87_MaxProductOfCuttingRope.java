@@ -110,4 +110,9 @@ public class Test87_MaxProductOfCuttingRope {
 		}
 		return M[length];
 	}
+
+	public static void main(String[] args) {
+		Test87_MaxProductOfCuttingRope t = new Test87_MaxProductOfCuttingRope();
+		System.out.println(t.maxProductII(10));
+	}
 }

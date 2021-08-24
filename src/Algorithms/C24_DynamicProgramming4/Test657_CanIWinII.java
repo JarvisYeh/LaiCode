@@ -39,11 +39,12 @@ public class Test657_CanIWinII {
 		int[][] max = new int[nums.length][nums.length];
 		for (int i = nums.length - 1; i >= 0; i--) {
 			for (int j = i; j < nums.length; j++) {
-				if (i == j) {           // base case 1: slice left
+				if (i == j) {           // base case 1: 1 slice left
 					max[i][j] = nums[i];
-				} else if (i == j - 1) {// base case 2: slices left, pick larger one
+				} else if (i == j - 1) {// base case 2: 2 slices left, pick larger one
 					max[i][j] = Math.max(nums[i], nums[j]);
 				} else {
+					// the friend will pick larger index pizza if nums[l] == nums[r]
 					// case 1: pick nums[i]
 					int pickLeft = nums[i];
 					pickLeft += (nums[i + 1] > nums[j] ? max[i + 2][j] : max[i + 1][j - 1]);

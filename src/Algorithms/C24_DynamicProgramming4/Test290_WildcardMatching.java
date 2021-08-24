@@ -1,8 +1,10 @@
 package Algorithms.C24_DynamicProgramming4;
 
-public class LeetCode44_WildcardMatching {
-	public boolean isMatch(String s, String p) {
+public class Test290_WildcardMatching {
+	public boolean match(String s, String p) {
 		int m = s.length(), n = p.length();
+
+		// DP[i][j]: whether first i letters in s matches first j letters in p
 		boolean[][] DP = new boolean[m + 1][n + 1];
 
 		// base cases

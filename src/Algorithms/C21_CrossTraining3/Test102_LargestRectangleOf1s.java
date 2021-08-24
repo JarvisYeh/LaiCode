@@ -1,6 +1,6 @@
 package Algorithms.C21_CrossTraining3;
 
-public class LeetCode85_MaximalRectangle {
+public class Test102_LargestRectangleOf1s {
 	// Method 1:
 	// use the largest consecutive 1s as sub problem
 	// generate look up and loop left matrix
@@ -83,25 +83,18 @@ public class LeetCode85_MaximalRectangle {
 	// SC: O(n)
 	private int getMaxArea(int[] arr) {
 		int n = arr.length;
-		int[] lessLeftIdxs = new int[n];
-		int[] lessRightIdxs = new int[n];
-		lessLeftIdxs[0] = -1;
-		lessRightIdxs[n - 1] = n;
+		int[] lessLeftIdxs = new int[n], lessRightIdxs = new int[n];
 
 		// generate lessLeftIdxs
-		for (int i = 1; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			int prev = i - 1;
-			while (prev >= 0 && arr[prev] >= arr[i]) {
-				prev = lessLeftIdxs[prev];
-			}
+			while (prev >= 0 && arr[prev] >= arr[i]) prev = lessLeftIdxs[prev];
 			lessLeftIdxs[i] = prev;
 		}
 		// generate lessRightIdxs
-		for (int i = n - 2; i >= 0; i--) {
+		for (int i = n - 1; i >= 0; i--) {
 			int prev = i + 1;
-			while (prev < n && arr[prev] >= arr[i]) {
-				prev = lessRightIdxs[prev];
-			}
+			while (prev < n && arr[prev] >= arr[i]) prev = lessRightIdxs[prev];
 			lessRightIdxs[i] = prev;
 		}
 
@@ -115,7 +108,7 @@ public class LeetCode85_MaximalRectangle {
 
 
 	public static void main(String[] args) {
-		LeetCode85_MaximalRectangle t = new LeetCode85_MaximalRectangle();
+		Test102_LargestRectangleOf1s t = new Test102_LargestRectangleOf1s();
 		System.out.println(t.maximalRectangleII(new char[][]{
 				{'1', '1'}
 		}));
