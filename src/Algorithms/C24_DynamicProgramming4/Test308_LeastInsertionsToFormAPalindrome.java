@@ -1,9 +1,9 @@
 package Algorithms.C24_DynamicProgramming4;
 
-public class LeetCode1312_MinimumInsertionStepsToMakeAStringPalindrome {
+public class Test308_LeastInsertionsToFormAPalindrome {
 	// TC: O(n^2)
 	// SC: O(n^2)
-	public int minInsertions(String s) {
+	public int leastInsertion(String s) {
 		// ms[i][j] represents the minimal characters needed to be inserted to make s[i, j] a palindrome
 		int[][] minSteps = new int[s.length()][s.length()];
 		// from left ro right
