@@ -85,7 +85,7 @@ public class Test_DetermineCousin {
 		// which are same
 		// and their level - curLevel > 1, i.e. curr is not their parent
 		// set res[0] to true
-		if (left == right && left - level > 1) {
+		if (left != -1 && right != -1 && left == right && left - level > 1) {
 			res[0] = true;
 		}
 		return left == -1 ? right : left;
