@@ -30,7 +30,8 @@ public class Test198_LargestRectangleInHistogram {
 	/**
 	 * 找到直方图中面积最大的矩形
 	 * Solution 2:
-	 * 使用stack
+	 * 使用 increasing stack
+	 * 每次 push index i 之前，确认 i 之前的第一个 j, where arr[j] < arr[i]
 	 * Time Complexity: O(n)
 	 * Space Complexity: O(n)
 	 **/
@@ -96,8 +97,8 @@ public class Test198_LargestRectangleInHistogram {
 	 * TC: O(n)
 	 * SC: O(n)
 	 */
-	public int largestRectangleArea(int[] heights) {
-		int n = heights.length;
+	public int largestIII(int[] array) {
+		int n = array.length;
 		int[] leftLessIdxs = new int[n];    // l[i]: the first idx that l[idx] < l[i] when looking left
 		leftLessIdxs[0] = -1;
 		int[] rightLessIdxs = new int[n];   // r[i]: the first idx that r[idx] < r[i] when looking right
@@ -106,7 +107,7 @@ public class Test198_LargestRectangleInHistogram {
 		// fill left array
 		for (int i = 1; i < n; i++) {
 			int prev = i - 1;
-			while (prev >= 0 && heights[prev] >= heights[i]) {
+			while (prev >= 0 && array[prev] >= array[i]) {
 				// now heights[prev] >= heights[i], first index that is less than heights[prev] is left[prev]
 				// so directly update prev to that index: left[prev]
 				prev = leftLessIdxs[prev];
@@ -118,7 +119,7 @@ public class Test198_LargestRectangleInHistogram {
 		// fill right array
 		for (int i = n - 2; i >= 0; i--) {
 			int prev = i + 1;
-			while (prev < n && heights[prev] >= heights[i]) {
+			while (prev < n && array[prev] >= array[i]) {
 				// update prev to first idx that is less than heights[prev]
 				prev = rightLessIdxs[prev];
 			}
@@ -129,8 +130,47 @@ public class Test198_LargestRectangleInHistogram {
 		// find max area
 		int max = 0;
 		for (int i = 0; i < n; i++) {
-			int area = (rightLessIdxs[i] - leftLessIdxs[i] - 1)*heights[i];
+			int area = (rightLessIdxs[i] - leftLessIdxs[i] - 1)*array[i];
 			max = Math.max(area, max);
+		}
+		return max;
+	}
+
+	/**
+	 * Solution 4
+	 * 使用 non-deceasing stack
+	 * 每次 push index i 前，确认 i 会是谁的 left/right boundary
+	 */
+	public int largestRectangleArea(int[] heights) {
+		// maintain a non-decreasing stack
+		Deque<Integer> stack = new ArrayDeque<>();
+
+		// right[i] is the first index that is less than heights[i] to the right of i
+		int[] right = new int[heights.length];
+		for (int i = 0; i < heights.length; i++) {
+			// while there is elements and heights[i] < heights[stack top]
+			while (!stack.isEmpty() && heights[i] < heights[stack.peekFirst()]) {
+				right[stack.pollFirst()] = i;
+			}
+			stack.offerFirst(i);
+		}
+		// what ever index left in stack has larger elements to their right
+		while (!stack.isEmpty()) right[stack.pollFirst()] = heights.length;
+
+		// left[i] is the first index that is less than heights[i] to the left of i
+		int[] left = new int[heights.length];
+		for (int i = heights.length - 1; i >= 0; i--) {
+			while (!stack.isEmpty() && heights[i] < heights[stack.peekFirst()]) {
+				left[stack.pollFirst()] = i;
+			}
+			stack.offerFirst(i);
+		}
+		// what ever index left in stack has larger elements to their left
+		while (!stack.isEmpty()) left[stack.pollFirst()] = -1;
+
+		int max = 0;
+		for (int i = 0; i < heights.length; i++) {
+			max = Math.max(max, heights[i]*(right[i] - left[i] - 1));
 		}
 		return max;
 	}
