@@ -8,7 +8,7 @@ public class Test26_KthSmallestNumberInSortedMatrix {
 	/**
 	 * Related to Best First Search
 	 * BFS pop and push neighbors, pay attention to avoid pushing same node, and avoid crossing the boundary
-	 * pop from minHeap K times, the last one is answer
+	 * pop from minHeap K times, the last one is the answer
 	 **/
 	public int kthSmallest(int[][] matrix, int k) {
 		int rows = matrix.length;

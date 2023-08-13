@@ -8,7 +8,7 @@ public class Test53_DeleteInBinarySearchTree {
 	 * Case 2: the target node only has left child node
 	 * Case 3: the target node only has right child node
 	 * Case 4: the target node has both left and right children
-	 * Then we need to find the smallest node among the nodes which are larget than the target (Among right subtree)
+	 * Then we need to find the smallest node among the nodes which are larger than the target (Among right subtree)
 	 * Case 4.1 target.right has no left child.
 	 * Case 4.2 target.right has left child. Find the most left one.
 	 **/

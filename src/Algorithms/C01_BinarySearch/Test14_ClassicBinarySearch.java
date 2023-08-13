@@ -1,6 +1,6 @@
 package Algorithms.C01_BinarySearch;
 
-public class Test10_ClassicBinarySearch {
+public class Test14_ClassicBinarySearch {
     /**
      * Returns the index of the target number
      * If the not found, return -1
@@ -34,7 +34,7 @@ public class Test10_ClassicBinarySearch {
 
 
     public static void main(String[] args) {
-        Test10_ClassicBinarySearch test = new Test10_ClassicBinarySearch();
+        Test14_ClassicBinarySearch test = new Test14_ClassicBinarySearch();
         int res = test.binarySearch(new int[] {3,4,5,6,6,9,16}, 5);
         System.out.println(res);
     }
