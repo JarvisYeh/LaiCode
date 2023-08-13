@@ -105,16 +105,16 @@ public class Test53_DeleteInBinarySearchTree {
 				targetNode.right.left = targetNode.left;
 				nodeToReplaceTarget = targetNode.right;
 			} else { // case 4.2
-				TreeNode curr2 = targetNode.right.left;
-				TreeNode prev2 = targetNode.right;
-				while (curr2.left != null) {
-					prev2 = curr2;
-					curr2 = curr2.left;
+				TreeNode newTarget = targetNode.right.left;
+				TreeNode newTargetParent = targetNode.right;
+				while (newTarget.left != null) {
+					newTargetParent = newTarget;
+					newTarget = newTarget.left;
 				}
-				prev2.left = curr2.right;
-				curr2.left = targetNode.left;
-				curr2.right = targetNode.right;
-				nodeToReplaceTarget = curr2;
+				newTargetParent.left = newTarget.right;
+				newTarget.left = targetNode.left;
+				newTarget.right = targetNode.right;
+				nodeToReplaceTarget = newTarget;
 			}
 		}
 
