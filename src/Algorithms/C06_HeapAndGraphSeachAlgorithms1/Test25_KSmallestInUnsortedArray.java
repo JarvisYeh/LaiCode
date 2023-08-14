@@ -28,6 +28,26 @@ public class Test25_KSmallestInUnsortedArray {
 	}
 
 	/**
+	 * Method 2: Using min heap
+	 * Add all elements to the min heap
+	 * Pop out top k elements which will be the result
+	 */
+	public int[] kSmallestII(int[] array, int k) {
+		// java internal heapify can only be used in the constructor phase
+		// and the constructor accept Collection as input
+		// O(n)
+		PriorityQueue<Integer> minHeap = new PriorityQueue<>(
+			Arrays.asList(
+				Arrays.stream(array).boxed().toArray(Integer[]::new)
+			)
+		);
+
+		int[] res = new int[k];
+		for (int i=0; i<k; i++) res[i] = minHeap.poll();
+		return res;
+	}
+
+	/**
 	 * Method 3: Quick Select
 	 * every time choose a random pivot, and find its sorted index
 	 * if index + 1 < k
