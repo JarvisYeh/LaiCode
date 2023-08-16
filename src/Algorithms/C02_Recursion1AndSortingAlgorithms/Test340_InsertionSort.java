@@ -1,6 +1,6 @@
 package Algorithms.C02_Recursion1AndSortingAlgorithms;
 
-public class InsertionSort {
+public class Test340_InsertionSort {
 	public void insertionSort(int[] arr) {
 		for (int i = 1; i < arr.length; i++) {
 			int key = arr[i];
@@ -14,7 +14,7 @@ public class InsertionSort {
 	}
 
 	public static void main(String[] args) {
-		InsertionSort t = new InsertionSort();
+		Test340_InsertionSort t = new Test340_InsertionSort();
 		int[] arr = {2, 6, 3, 1, 9};
 		t.insertionSort(arr);
 		for (int i : arr) {

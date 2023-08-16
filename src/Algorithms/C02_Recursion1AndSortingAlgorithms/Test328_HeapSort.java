@@ -1,12 +1,12 @@
 package Algorithms.C02_Recursion1AndSortingAlgorithms;
 
-public class HeapSort {
+public class Test328_HeapSort {
 	// use max heap
 	// TC: O(nlog n)
 	// SC: O(1)
-	public void heapSort(int[] arr) {
+	public int[] heapsort(int[] arr) {
 		if (arr == null || arr.length == 0) {
-			return;
+			return arr;
 		}
 
 		// heapify the tree, O(n) can be prove
@@ -27,6 +27,7 @@ public class HeapSort {
 			// since the arr[end] now swap to arr[0], percolateDown arr[0]
 			percolateDown(arr, i,0);
 		}
+		return arr;
 	}
 
 	// move a element in heap down to its right position
@@ -85,9 +86,9 @@ public class HeapSort {
 	}
 
 	public static void main(String[] args) {
-		HeapSort t = new HeapSort();
+		Test328_HeapSort t = new Test328_HeapSort();
 		int[] nums = {5, 2, 3, 1};
-		t.heapSort(nums);
+		t.heapsort(nums);
 		for (int i : nums) {
 			System.out.print(i + "\t");
 		}
