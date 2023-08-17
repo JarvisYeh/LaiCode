@@ -21,31 +21,31 @@ public class Test56_Bipartite {
 		return true;
 	}
 
-	private boolean BFS(GraphNode startNode, HashMap<GraphNode, Integer> expanded) {
+	private boolean BFS(GraphNode startNode, HashMap<GraphNode, Integer> generated) {
 		// if this sub-graph is expanded, directly returns true
-		if (expanded.containsKey(startNode)) {
+		if (generated.containsKey(startNode)) {
 			return true;
 		}
 
 		Deque<GraphNode> queue = new ArrayDeque<>();
 		queue.offer(startNode);
 		// set startNode to group 0
-		expanded.put(startNode, 0);
+		generated.put(startNode, 0);
 
 		// BFS sub-graph
 		while (queue.size() != 0) {
 			GraphNode curr = queue.poll();
-			int groupNum = expanded.get(curr);
+			int groupNum = generated.get(curr);
 
 			// iterate through the neighbors of current node
 			for (GraphNode nei : curr.neighbours) {
 				// if that neighbor is not expanded previously
-				if (!expanded.containsKey(nei)) {
+				if (!generated.containsKey(nei)) {
 					queue.offer(nei);
-					expanded.put(nei, groupNum == 0 ? 1 : 0);
+					generated.put(nei, groupNum == 0 ? 1 : 0);
 					// if that neighbor
 				} else {
-					if (expanded.get(nei) == groupNum) {
+					if (generated.get(nei) == groupNum) {
 						return false;
 					} else {
 						continue;

@@ -56,11 +56,11 @@ public class Test47_CheckIfBinaryTreeIsCompleted {
 	}
 
 	// level order traversal
-	// first met null, can not meet null again
-	// need to use linkedList as queue
+	// If the first null node is traversed, all the following nodes has to be null
+	// need to use linkedList as queue (in order to store null)
 	public boolean isCompletedII(TreeNode root) {
 		if (root == null) return true;
-		boolean flag = false;
+
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(root);
 		while (queue.peek() != null) {
