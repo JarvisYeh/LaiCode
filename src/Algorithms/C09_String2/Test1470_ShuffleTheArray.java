@@ -37,12 +37,12 @@ public class Test1470_ShuffleTheArray {
 		int mid = l + size/2;
 		int lm = l + size/2/2;
 		int rm = mid + size/2/2;
-		// reverse [lm, rm)
-		reverse(arr, lm, rm - 1);
-		// reverse [lm, m)
+		// reverse [lm, mid) => AB | EDC 12 | 345
 		reverse(arr, lm, mid - 1);
-		// reverse [m, rm)
+		// reverse [mid, rm) => AB | EDC 21 | 345
 		reverse(arr, mid, rm - 1);
+		// reverse [lm, rm) => AB | 12 CDE | 345
+		reverse(arr, lm, rm - 1);
 
 		// after reverse:
 		// A B C D E 1 2 3 4 5 => A B 1 2 | C D E 3 4 5
