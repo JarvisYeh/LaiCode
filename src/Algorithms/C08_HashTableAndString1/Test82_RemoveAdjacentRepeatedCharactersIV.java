@@ -17,10 +17,10 @@ public class Test82_RemoveAdjacentRepeatedCharactersIV {
 		stack.offerFirst(charArray[0]);
 
 		int i = 1;
-		// go through each characters
+		// go through each character
 		while (i < charArray.length) {
 			if (stack.size() == 0 || stack.peekFirst() != charArray[i]) {
-				stack.offerFirst(charArray[i]);
+				stack.offerFirst(charArray[i++]);
 			} else {
 				while (i < charArray.length && stack.peekFirst() == charArray[i]) {
 					i++;
@@ -69,6 +69,6 @@ public class Test82_RemoveAdjacentRepeatedCharactersIV {
 
 	public static void main(String[] args) {
 		Test82_RemoveAdjacentRepeatedCharactersIV test = new Test82_RemoveAdjacentRepeatedCharactersIV();
-		test.deDupI("abc");
+		System.out.println(test.deDupI("abbbaaccz"));
 	}
 }
