@@ -41,9 +41,15 @@ public class Test649_StringReplaceBasic {
 	 **/
 	private HashSet<Integer> findMatchIndex(char[] ori, char[] s) {
 		HashSet<Integer> res = new HashSet<>();
-		for (int i = 0; i <= ori.length - s.length; i++) {
+		int i = 0;
+		while (i <= ori.length - s.length) {
 			if (checkEquals(ori, i, s)) {
 				res.add(i);
+				// avoid source string overlap
+				// e.g. aaaaaa, aa -> bbb
+				i += s.length;
+			} else {
+				i++;
 			}
 		}
 		return res;
