@@ -21,7 +21,7 @@ public class Test78_HexadecimalRepresentation {
 
 	/**
 	 * Solution 2:
-	 * 从LHS开始，每4位代表一个16进制数字
+	 * 从MSB开始，每4 bits代表一个16进制数字
 	 * 同时需要一个flag，使得最开始没有意义的0不被加入结果
 	 **/
 	public String hexII(int number) {
