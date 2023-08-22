@@ -19,4 +19,19 @@ public class Test626_ReverseBitsof32bitInteger {
 		return n;
 	}
 
+	public long reverseBitsII(long n) {
+		long x = 0;
+		for (int i = 0; i < 32; i++) {
+			x += ((n >> i) & 1);
+			x <<= 1;
+		}
+		return x;
+	}
+
+
+	public static void main(String[] args) {
+		Test626_ReverseBitsof32bitInteger t = new Test626_ReverseBitsof32bitInteger();
+		System.out.println(Long.toBinaryString(t.reverseBitsII(1L)));
+	}
+
 }
