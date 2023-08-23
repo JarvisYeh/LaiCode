@@ -79,8 +79,37 @@ public class Test292_StringAbbreviationMatching {
 		}
 	}
 
+	public boolean matchIII(String text, String pattern) {
+		// corner case
+		if (text == null || pattern == null) return false;
+
+		int m = text.length(), n = pattern.length();
+		boolean[][] DP = new boolean[n + 1][m + 1];     // DP[i][j] represents whether pattern[0:i) matches input[0:j)
+		for (int i = 0; i <= n; i++) {
+			for (int j = 0; j <= m; j++) {
+				if (i == 0 && j == 0) DP[i][j] = true;      // DP[0][0] = true
+				if (i == 0 || j == 0) continue;             // DP[0][j] and DP[0][i] = false
+				if (Character.isAlphabetic(pattern.charAt(i - 1))) {
+					DP[i][j] = pattern.charAt(i - 1) == text.charAt(j - 1) ? DP[i - 1][j - 1] : false;
+				} else {
+					int digitStart = i - 1, count = 0;
+					while (digitStart >= 0 && Character.isDigit(pattern.charAt(digitStart))) {
+						count = count + (pattern.charAt(digitStart) - '0') * (int) (Math.pow(10, i - 1 - digitStart));
+						digitStart--;
+					}
+					if (count > j) {
+						DP[i][j] = false;
+					} else {
+						DP[i][j] = DP[digitStart + 1][j - count];
+					}
+				}
+			}
+		}
+		return DP[n][m];
+	}
+
 	public static void main(String[] args) {
 		Test292_StringAbbreviationMatching test = new Test292_StringAbbreviationMatching();
-		test.matchII("apple", "2p1");
+		System.out.println(test.matchIII("sophisticatedd", "s111d"));
 	}
 }

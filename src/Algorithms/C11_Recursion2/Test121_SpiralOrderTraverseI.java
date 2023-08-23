@@ -19,7 +19,7 @@ public class Test121_SpiralOrderTraverseI {
 	}
 
 	private void spiral(List<Integer> res, int[][] mat, int offset, int size) {
-		if (size  <= 1) {
+		if (size <= 1) {
 			if (size == 1) {
 				res.add(mat[offset][offset]);
 			}
