@@ -25,13 +25,11 @@ public class Test87_MaxProductOfCuttingRope {
 	 * @return
 	 */
 	private int maxProductI(int length, int position, int reserve, boolean check_cut) {
-		if (position == length) {
-			return reserve;
-		}
+		if (position == length) return reserve;
 
 		// 如果cut，下一层reserve变为1，当前层将之前累计的reserve乘进prod中
 		int cut = reserve * maxProductI(length, position + 1, 1, true);
-		// 如果不cur，下一层reserve + 1
+		// 如果不cut，下一层reserve + 1
 		int not_cut = maxProductI(length, position + 1, reserve + 1, check_cut);
 
 		// 如果是最后一个位置，并且之前没有cut，当前位置一定要cut
