@@ -5,8 +5,6 @@ public class Test104_LongestCrossOf1s {
 		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
 			return 0;
 		}
-		int rows = matrix.length;
-		int cols = matrix[0].length;
 
 		int[][] leftUp = getLeftUp(matrix);
 		int[][] rightDown = getRightDown(matrix);

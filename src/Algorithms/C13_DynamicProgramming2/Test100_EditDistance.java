@@ -72,7 +72,7 @@ public class Test100_EditDistance {
 					// delete -> "xxxxxxxxxx " "yyyyyy b"
 					int delete = 1 + M[i - 1][j];
 
-					// delete -> "xxxxxxxxxx ab" "yyyyyy b"
+					// insert -> "xxxxxxxxxx ab" "yyyyyy b"
 					int insert = 1 + M[i][j - 1];
 
 					M[i][j] = Math.min(replace, Math.min(delete, insert));
