@@ -4,7 +4,7 @@ import util.TreeNode;
 
 public class Test_MaximumSumOfPath {
 	/**
-	 * 从一个子节点到另一个子节点路径上所有值的最大和
+	 * 从一个叶子节点到另一个叶子节点路径上所有值的最大和
 	 **/
 	public int maxSum(TreeNode root){
 		if (root == null) {
