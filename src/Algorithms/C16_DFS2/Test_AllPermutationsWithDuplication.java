@@ -2,7 +2,7 @@ package Algorithms.C16_DFS2;
 
 import java.util.*;
 
-public class Test_AllPermuationsWithDuplication {
+public class Test_AllPermutationsWithDuplication {
 	// Method 1: use swap and hashset
 	// if s[i] has swapped to idx before
 	// not swap same character to idx again
@@ -75,7 +75,7 @@ public class Test_AllPermuationsWithDuplication {
 
 
 	public static void main(String[] args) {
-		Test_AllPermuationsWithDuplication test = new Test_AllPermuationsWithDuplication();
+		Test_AllPermutationsWithDuplication test = new Test_AllPermutationsWithDuplication();
 		System.out.println(test.allPermutationsII("abb"));
 	}
 }
