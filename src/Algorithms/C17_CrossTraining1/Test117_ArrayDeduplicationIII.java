@@ -6,22 +6,14 @@ public class Test117_ArrayDeduplicationIII {
 	// sorted array去除所有重复字母
 	// 因为是sorted本身就不可能repeatedly removal
 	// 1233 => 12
-	public int[] deDup(int[] array) {
-		// keep[0, slow)
-		// check array[fast] and onwards, not keep same elements
-		int slow = 0;
-		int fast = 0;
+	public int[] dedup(int[] array) {
+		int slow = 0, fast = 0;
 		while (fast < array.length) {
-			int newFast = fast + 1;
-			while (newFast < array.length && array[fast] == array[newFast]) {
-				newFast++;
-			}
-			// after the loop newFast is the first index that its content != array[fast]
-			// if there are no duplicate elements in [fast, newFast]
-			if (newFast - fast == 1) {
-				array[slow++] = array[fast++];
+			if (slow > 0 && array[fast] == array[slow - 1]) {
+				while (fast < array.length && array[fast] == array[slow - 1]) fast++;
+				slow--;    // remove array[slow] from preserved range
 			} else {
-				fast = newFast;
+				array[slow++] = array[fast++];
 			}
 		}
 		return Arrays.copyOf(array, slow);
@@ -29,7 +21,7 @@ public class Test117_ArrayDeduplicationIII {
 
 	public static void main(String[] args) {
 		Test117_ArrayDeduplicationIII t = new Test117_ArrayDeduplicationIII();
-		System.out.println(Arrays.toString(t.deDup(new int[]{1, 2, 2, 1, 3, 3, 4, 4})));
+		System.out.println(Arrays.toString(t.dedup(new int[]{1, 2, 2, 1, 3, 3, 4, 4})));
 	}
 
 }
